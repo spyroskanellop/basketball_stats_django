@@ -1,10 +1,13 @@
 from django.db import models
 from django.forms import CharField
+from django.forms import ModelForm,Textarea
 
 
 class Teams(models.Model):
-    teamname = models.CharField(max_length=20)
+    team_name = models.CharField(max_length=20)
 
+class Meta:
+    db_table = "Teams"
 
 class Players(models.Model):
     POSITION = (
@@ -30,7 +33,8 @@ class Players(models.Model):
     def __str__(self):
         return self.firstname
 
-
+class Meta:
+    db_table = "Players"
 
 class Scores(models.Model):
     xCoor = models.FloatField()
@@ -38,3 +42,5 @@ class Scores(models.Model):
     isGoal = models.BooleanField()
     playerID = models.ManyToManyField(Players)
 
+class Meta:
+    db_table = "Score"
