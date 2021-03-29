@@ -6,4 +6,6 @@ from run import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('team', views.team),
+    path('conf', views.admin),
+    path('home', views.home),
 ]

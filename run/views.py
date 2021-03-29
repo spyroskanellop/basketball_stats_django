@@ -27,3 +27,6 @@ def team(request):
     else:
         form = TeamsForm()
     return render(request, 'index.html', {'form':form})
+
+def admin(request):
+    return render(request, 'admin.html')
