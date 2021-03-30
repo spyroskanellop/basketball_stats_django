@@ -1,0 +1,18 @@
+Class Teams
+    team_name
+    players(list to be implemented later)
+
+Class Players
+    first_name
+    last_name
+    dob (date)
+    position    (enum)
+    dominant hand (enum)
+    nationality
+    team ID (foreign key to teams table)
+
+Class Scores
+    xCoor   (to map the floor)
+    yCoor   (to map the floor)
+    isGoal
+    playerID (foreign key to players table0

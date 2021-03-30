@@ -1,0 +1,32 @@
+modelview project
+
+    modelview (project_folder)
+
+        urls.py (url pattern and mapping with views.py)
+        setting.py (setting for the app, including db info, static files and runnables)
+
+    run (app_folder)
+
+      models.py (classes that will be used as tables in db)
+      views.py (basically like java controllers, returning http requests and handling the urls and pointing to html pages)
+      forms.py (autofills the fields on html pages, can choose which fields separately)
+
+      static_folder (css folder and img folder (static files need to be imported also to settings.py))
+
+        css folder
+            admin.css
+            teamsForm.css
+            playersForm.css
+            scoresForm.css
+
+
+      templates_folder (all the html pages)
+
+        teamsForm.html (add & edit team)
+        playersForm.html (add & edit player)
+        scoresForm.html (add & edit scores)
+        teamsList.html (show teams)
+        playersList.html (show players)
+        scoresList.html (show scores)
+
+

@@ -1,19 +1,12 @@
 from django.http import HttpResponse
 from django.urls import path
 from django.shortcuts import render, redirect
-from run.forms import TeamsForm
+from run.forms import TeamsForm, PlayersForm
+
 
 # Create your views here.
-def about(request):
-    return HttpResponse("Hello, world. You're at the about page.")
-
-
 def home(request):
     return HttpResponse('Hello from home')
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
-
 
 def team(request):
     if request.method == "POST":
@@ -26,7 +19,28 @@ def team(request):
                 pass
     else:
         form = TeamsForm()
-    return render(request, 'index.html', {'form':form})
+    return render(request, 'teams_form.html', {'form':form})
+
+def team_form(request):
+    if request.method == "GET":
+        form = TeamsForm()
+        return render(request, "teams_form.html", {'form': form})
+    else :
+        form = TeamsForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/team/showTeams')
+
+def team_list(request):
+    return render(request, "teams_list.html")
+
+def team_del(request):
+    return render(request, "teams_list.html")
+
+def player_form(request):
+    form = PlayersForm()
+    return render(request, "players_form.html", {'form':form})
+
 
 def admin(request):
     return render(request, 'admin.html')
