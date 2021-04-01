@@ -4,7 +4,10 @@ from django.forms import ModelForm,Textarea
 
 
 class Teams(models.Model):
-    team_name = models.CharField(max_length=20)
+    team_name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.team_name
 
 class Meta:
     db_table = "Teams"

@@ -15,4 +15,4 @@ Class Scores
     xCoor   (to map the floor)
     yCoor   (to map the floor)
     isGoal
-    playerID (foreign key to players table0
+    playerID (foreign key to players table)

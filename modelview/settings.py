@@ -55,7 +55,7 @@ ROOT_URLCONF = 'modelview.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'modelview.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'basketball_stats',
+        'NAME': 'basket_stats',
         'HOST': 'localhost',
         'USER': 'root',
         'PASSWORD': 'root_password',
