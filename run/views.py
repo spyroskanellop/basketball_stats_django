@@ -22,7 +22,6 @@ def home(request):
 #         form = TeamsForm()
 #     return render(request, 'teams_form.html', {'form':form})
 
-# TODO needs further fixing
 def createTeam(request):
     form = TeamsForm()
     if request.method == 'POST':
