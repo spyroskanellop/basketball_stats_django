@@ -7,13 +7,26 @@
 <body>
     <h1>Table to display teams</h1>
     <table class="table table-borderless">
-        <thead class="border-bottom font-weight-bold">
+        <thead>
             <tr>
-                <td>Team's Name</td>
+                <td>Team Name</td>
+                <td><a href="{% url 'team_insert'  %}" class="btn text-secondary px-0"><button>Add team</button></a></td>
             </tr>
         </thead>
         <tbody>
-
+            {% for team in team_list %}
+                <tr>
+                    <td>{{team.team_name}}</td>
+                    <td><a href="{% url 'team_update' team.id %}" class="btn text-secondary px-0">
+                        <button>Edit</button>
+                        <i class="fas fa-edit"></i>
+                    </a></td>
+                    <td><a href="{% url 'team_delete' team.id %}" class="btn text-secondary px-0">
+                        <button>Delete</button>
+                        <i class="fas fa-edit"></i>
+                    </a></td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 </body>
