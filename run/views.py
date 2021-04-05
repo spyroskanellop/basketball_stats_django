@@ -1,12 +1,15 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import path
 from django.shortcuts import render, redirect
-from run.models import Teams
+from run.models import Teams, Players
 from .forms import TeamsForm, PlayersForm, ScoresForm
 
 
 # Create your views here.
 def home(request):
+    return render(request, 'admin.html')
+
+def admin(request):
     return render(request, 'admin.html')
 
 # def team(request):
@@ -57,7 +60,6 @@ def team_list(request):
 
 def deleteTeam(request, id):
     team = Teams.objects.get(pk=id)
-    print(team)
     context = {'team':team}
 
     if request.method == "POST":
@@ -66,10 +68,47 @@ def deleteTeam(request, id):
 
     return render(request, "delete_team.html", context)
 
-# def player_form(request):
-#     form = PlayersForm()
-#     return render(request, "players_form.html", {'form':form})
-#
+def player_form(request):
+    form = PlayersForm()
+    if request.method == 'POST':
+        form = PlayersForm(request.POST)
+        if form.is_valid:
+            form.save()
+            print('saved')
+            return HttpResponseRedirect('showPlayers')
+        else:
+            print('not saved')
 
-def admin(request):
-    return render(request, 'admin.html')
+    return render(request, "players_form.html", {'form':form})
+
+
+def player_list(request):
+    context= {'player_list':Players.objects.all()}
+
+    return render(request, "players_list.html", context)
+
+def updatePlayer(request, id):
+    player = Players.objects.get(pk=id)
+    form = PlayersForm(instance=player)
+    if request.method == "POST":
+        form = PlayersForm(request.POST, instance=player)
+        if form.is_valid:
+            form.save()
+            print("player saved")
+            return HttpResponseRedirect('/../../player/showPlayers')
+        else:
+            print("not saved")
+    context = {'form':form}
+    return render(request, "players_form.html", context)
+
+def deletePlayer(request, id):
+    player = Players.objects.get(pk=id)
+    context = {'player': player}
+    print(player)
+
+    if request.method == "POST":
+        player.delete()
+        print("player deleted")
+        return HttpResponseRedirect('/../../player/showPlayers')
+
+    return render(request, "delete_player.html", context)

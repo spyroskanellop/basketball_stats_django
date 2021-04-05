@@ -1,10 +1,10 @@
 from django.db import models
-from django.forms import CharField
+from django.forms import CharField, DateInput, forms
 from django.forms import ModelForm,Textarea
 
 
 class Teams(models.Model):
-    team_name = models.CharField(max_length=200)
+    team_name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
         return self.team_name
@@ -27,7 +27,7 @@ class Players(models.Model):
 
     firstname = models.CharField(max_length=20)
     lastname = models.CharField(max_length=20)
-    dob = models.DateField()
+    dob = models.DateField("dob(mm/dd/year)", auto_now_add=False, auto_now=False, blank=True, null=True)
     position = models.CharField(max_length=20, null=True, choices=POSITION)
     dominant_hand = models.CharField(max_length=20, null=True, choices=DOMINANT_HAND)
     nationality = models.CharField(max_length=20)

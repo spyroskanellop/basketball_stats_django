@@ -5,6 +5,10 @@
     <title>Form to add players</title>
 </head>
 <body>
-    {{ form }}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Save</button>
+    </form>
 </body>
 </html>

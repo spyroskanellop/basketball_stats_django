@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, forms
 from .models import Teams, Players, Scores
 
 class TeamsForm(ModelForm):

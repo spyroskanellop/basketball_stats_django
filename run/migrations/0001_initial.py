@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('firstname', models.CharField(max_length=20)),
                 ('lastname', models.CharField(max_length=20)),
-                ('dob', models.DateField()),
+                ('dob', models.DateField(blank=True, null=True, verbose_name='dob(mm/dd/year)')),
                 ('position', models.CharField(choices=[('Point guard', 'Point guard'), ('Shooting guard', 'Shooting guard'), ('Small forward', 'Small forward'), ('Power forward', 'Power forward'), ('Center', 'Center')], max_length=20, null=True)),
                 ('dominant_hand', models.CharField(choices=[('Right hand', 'Right hand'), ('Left hand', 'Left hand')], max_length=20, null=True)),
                 ('nationality', models.CharField(max_length=20)),
@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
             name='Teams',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('team_name', models.CharField(max_length=200)),
+                ('team_name', models.CharField(max_length=200, unique=True)),
             ],
         ),
         migrations.CreateModel(

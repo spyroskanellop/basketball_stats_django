@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation page</title>
+</head>
+<body>
+    <h2>Under construction!!</h2>
+
+    Sure wanna delete {{player}}??
+    <form action="{% url 'player_delete' player.id %}" method="POST">
+        {% csrf_token %}
+        <a href="% url 'home' %">Cancel</a>
+
+        <input type="submit" name="Confirm">
+    </form>
+
+</body>
+</html>

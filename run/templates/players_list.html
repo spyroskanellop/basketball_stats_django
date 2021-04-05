@@ -2,9 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Players list!!</title>
 </head>
 <body>
+    <h2>Under Construction</h2>
 
+<h1>Table to display players</h1>
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <td>Players Name</td>
+                <td><a href="{% url 'player_insert'  %}" class="btn text-secondary px-0"><button>Add player</button></a></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for player in player_list %}
+                <tr>
+                    <td>{{player.firstname}}</td>
+                    <td>{{player.lastname}}</td>
+                    <td>{{player.dob}}</td>
+                    <td>{{player.position}}</td>
+                    <td>{{player.dominant_hand}}</td>
+                    <td>{{player.nationality}}</td>
+                    <td>{{player.teamID_id}}</td>
+
+                    <td><a href="{% url 'player_update' player.id %}" class="btn text-secondary px-0">
+                        <button>Edit</button>
+                        <i class="fas fa-edit"></i>
+                    </a></td>
+                    <td><a href="{% url 'player_delete' player.id %}" class="btn text-secondary px-0">
+                        <button>Delete</button>
+                        <i class="fas fa-edit"></i>
+                    </a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
