@@ -1,0 +1,5 @@
+Team class is the Allfather. Its the first entity but doesn't do much.
+
+Player class is a child of team. Enter info inside there about the player and assign him to a team. The first view is a list of players. Choose one to focus him.
+To be implemented!!!
+Make a button or sth to go to separate page player.html where u see his info not edit exactly. there u can set his score

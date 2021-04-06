@@ -3,16 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Players list!!</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">
+
 </head>
 <body>
     <h2>Under Construction</h2>
 
 <h1>Table to display players</h1>
-    <table class="table table-borderless">
+    <table class="content-table">
         <thead>
             <tr>
-                <td>Players Name</td>
-                <td><a href="{% url 'player_insert'  %}" class="btn text-secondary px-0"><button>Add player</button></a></td>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of birth</th>
+                <th>Position</th>
+                <th>Dominant Hand</th>
+                <th>Nationality</th>
+                <th>Team's ID</th>
+
+                <th><a href="{% url 'player_insert'  %}" class="btn text-secondary px-0"><button>Add player</button></a></th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +42,10 @@
                     </a></td>
                     <td><a href="{% url 'player_delete' player.id %}" class="btn text-secondary px-0">
                         <button>Delete</button>
+                        <i class="fas fa-edit"></i>
+                    </a></td>
+                    <td><a href="{% url 'player_delete' player.id %}" class="btn text-secondary px-0">
+                        <button>Set Score</button>
                         <i class="fas fa-edit"></i>
                     </a></td>
                 </tr>

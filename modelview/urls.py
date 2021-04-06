@@ -15,5 +15,7 @@ urlpatterns = [
     path('player/addPlayer', views.player_form, name='player_insert'),
     path('player/showPlayers', views.player_list, name='player_list'),
     path('updatePlayer/<int:id>/', views.updatePlayer, name='player_update'),
-    path('deletePlayer/<int:id>/', views.deletePlayer, name='player_delete')
+    path('deletePlayer/<int:id>/', views.deletePlayer, name='player_delete'),
+
+    path('player/setScore', views.goToScore, name='court'),
 ]

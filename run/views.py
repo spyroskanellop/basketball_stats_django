@@ -112,3 +112,8 @@ def deletePlayer(request, id):
         return HttpResponseRedirect('/../../player/showPlayers')
 
     return render(request, "delete_player.html", context)
+
+def goToScore(request):
+    context={}
+
+    return render(request, "court.html", context)

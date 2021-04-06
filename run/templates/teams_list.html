@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Teams list display</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">
 </head>
 <body>
     <h1>Table to display teams</h1>
-    <table class="table table-borderless">
+    <table class="content-table">
         <thead>
             <tr>
                 <td>Team Name</td>
