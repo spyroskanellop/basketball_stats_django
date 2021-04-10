@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Team</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
 </head>
 <body>
     <form action="" method="POST" >
         {% csrf_token %}
         {{ form }}
-        <button type="submit"> Save team</button>
+<!--        <button type="submit" name="submit"> Save team</button>-->
+        <input type="submit" value="Save team" id="submit">
     </form>
 
 </body>

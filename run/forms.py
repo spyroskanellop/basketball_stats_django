@@ -10,6 +10,16 @@ class PlayersForm(ModelForm):
     class Meta:
         model = Players
         fields = "__all__"
+        labels = {
+            'firstname': 'First Name',
+            'lastname': 'Last Name',
+            'dob': 'Date of birth(mm/dd/year)',
+            'position': 'Position',
+            'dominant_hand': 'Dominant hand',
+            'nationality': 'Nationality',
+            'teamID': 'Team id(number)',
+
+        }
 
 class ScoresForm(ModelForm):
     class Meta:

@@ -6,15 +6,41 @@
 </head>
 <body>
 {% load static %}
+<h2>hit left click for in right click for miss</h2>
 
-    Add a court for first
-<h1>LETS GOOOOOOO</h1>
+<img src="{% static 'img/court.png' %}" id="img" height="300px" width="500px" oncontextmenu="">
 
-<img src="{% static 'img/court.png' %}" usemap="#map" height="300px" width="500px">
-<map name="map">
-    <area shape="rect" coords="0,0,5,5" title="hi" onmouseover="alert('hi')">
-</map>
+<script type="text/javascript">
+    var buckets = [];
+    var misses = [];
 
+    img.addEventListener('click', e=> {
+      var x = e.x;
+      var y = e.y;
+      var loc =
+        {
+            "X": x,
+            "Y": y
+        }
+      buckets.push(loc);
+      console.log(buckets);
+      console.log("ITS IN");
+    })
 
+    img.addEventListener('contextmenu', e=> {
+      e.preventDefault();
+      var x = e.x;
+      var y = e.y;
+      var loc =
+        {
+            "X": x,
+            "Y": y
+        }
+      misses.push(loc);
+      console.log(misses);
+      console.log("ITS OUT");
+    })
+
+</script>
 </body>
 </html>

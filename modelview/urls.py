@@ -18,4 +18,6 @@ urlpatterns = [
     path('deletePlayer/<int:id>/', views.deletePlayer, name='player_delete'),
 
     path('player/setScore', views.goToScore, name='court'),
+    path('index/', views.index),
+
 ]

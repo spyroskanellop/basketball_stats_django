@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Form to add players</title>
+    {% load crispy_forms_tags %}
 </head>
 <body>
     <form action="" method="POST">
         {% csrf_token %}
-        {{ form }}
+        {{ form|crispy }}
         <button type="submit">Save</button>
     </form>
 </body>
