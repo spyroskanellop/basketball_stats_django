@@ -25,17 +25,16 @@
     var buckets = [];
     var misses = [];
 
-      $(document).click(function (ev) {
-      var x = ev.x;
-      var y = ev.y;
-
+      $("#img").click(function (ev) {
+      var x = ev.pageX;
+      var y = ev.pageY;
       var loc =
         {
             "X": x,
             "Y": y
         }
       buckets.push(loc);
-      document.getElementById('buckets').innerHTML = loc[buckets];
+      document.getElementById('buckets').innerHTML = buckets;
       console.log(buckets);
       console.log("ITS IN");
         $("body").append(
@@ -49,7 +48,7 @@
           );
         });
 
-$(document).contextmenu(function (ev) {
+$("#img").contextmenu(function (ev) {
       ev.preventDefault();
       var x = ev.x;
       var y = ev.y;
