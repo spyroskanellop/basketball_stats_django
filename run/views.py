@@ -9,7 +9,6 @@ from .forms import TeamsForm, PlayersForm, ScoresForm
 
 
 # Create your views here.
-from .image import Image
 
 
 def home(request):
@@ -123,20 +122,3 @@ def goToScore(request):
     context={}
 
     return render(request, "court.html", context)
-
-def index(request):
-    # img = cv2.imread('static/img/court.png')
-    img = Image()
-    # img = cv2.imread(img)
-    # cv2.imshow("Original image ", img)
-    # cv2.setMouseCallback("Original image ", mousePoints)
-    # cv2.waitKey(0)
-    # ret, frame_buff = cv2.imencode('.png', frame) #could be png, update html as well
-    # frame_b64 = base64.b64encode(frame_buff)
-    # facesNumber ="Found {0} faces!".format(len(faces))
-
-    # Note this was fixed to be one dict with the context variables
-    # return render(request, 'result.html', {'img': frame_b64})
-
-    return render(request, 'result.html', {'img':img})
-    # return render(request, 'result.html')

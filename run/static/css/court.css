@@ -1,0 +1,14 @@
+.fa-circle {
+    color: green;
+    position: absolute;
+}
+
+.fa-times {
+    color: red;
+    color-background: red;
+    position: absolute;
+}
+
+img {
+  width: 100%;
+}

@@ -3,34 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>CourtView to enter locations</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/court.css'%}">
 </head>
 <body>
-{% load static %}
 <h2>hit left click for in right click for miss</h2>
 
-<img src="{% static 'img/court.png' %}" id="img" height="300px" width="500px" oncontextmenu="">
-
+<img src="{% static 'img/court.png' %}" id="img" oncontextmenu="" style="width:50%;height:25%;">
+<div id="display">
+    <span id="buckets">Display buckets list</span>
+</div>
+<i class="far fa-circle" id="circle"></i>
+<i class="fas fa-times"></i>
 <script type="text/javascript">
     var buckets = [];
     var misses = [];
 
-    img.addEventListener('click', e=> {
-      var x = e.x;
-      var y = e.y;
+      $(document).click(function (ev) {
+      var x = ev.x;
+      var y = ev.y;
+
       var loc =
         {
             "X": x,
             "Y": y
         }
       buckets.push(loc);
+      document.getElementById('buckets').innerHTML = loc[buckets];
       console.log(buckets);
       console.log("ITS IN");
-    })
+        $("body").append(
+            $('<i class="far fa-circle" id="circle"></i>').css({
+              position: 'absolute',
+              top: ev.pageY + 'px',
+              left: ev.pageX + 'px',
+              width: '10px',
+              height: '10px',
+            })
+          );
+        });
 
-    img.addEventListener('contextmenu', e=> {
-      e.preventDefault();
-      var x = e.x;
-      var y = e.y;
+$(document).contextmenu(function (ev) {
+      ev.preventDefault();
+      var x = ev.x;
+      var y = ev.y;
+
       var loc =
         {
             "X": x,
@@ -39,7 +62,18 @@
       misses.push(loc);
       console.log(misses);
       console.log("ITS OUT");
-    })
+        $("body").append(
+            $('<i class="fas fa-times"></i>').css({
+              position: 'absolute',
+              top: ev.pageY + 'px',
+              left: ev.pageX + 'px',
+              width: '10px',
+              height: '10px',
+            })
+          );
+        });
+
+
 
 </script>
 </body>
