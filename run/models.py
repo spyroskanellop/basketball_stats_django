@@ -1,6 +1,5 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
-from django.forms import CharField, DateInput, forms
-from django.forms import ModelForm,Textarea
 
 
 class Teams(models.Model):
@@ -8,9 +7,6 @@ class Teams(models.Model):
 
     def __str__(self):
         return self.team_name
-
-class Meta:
-    db_table = "Teams"
 
 class Players(models.Model):
     POSITION = (
@@ -25,19 +21,20 @@ class Players(models.Model):
         ('Left hand', 'Left hand'),
     )
 
+    number = models.IntegerField(validators=[MaxValueValidator(100)], default=0)
     firstname = models.CharField(max_length=20)
     lastname = models.CharField(max_length=20)
-    dob = models.DateField("dob(mm/dd/year)", auto_now_add=False, auto_now=False, blank=True, null=True)
+    dob = models.DateField("dob(dd/mm/year)", auto_now_add=False, auto_now=False, blank=True, null=True)
+    height = models.CharField(max_length=20, default=0)
+    weight = models.IntegerField(validators=[MaxValueValidator(400)], default=0)
     position = models.CharField(max_length=20, null=True, choices=POSITION)
     dominant_hand = models.CharField(max_length=20, null=True, choices=DOMINANT_HAND)
-    nationality = models.CharField(max_length=20)
+    nationality = models.CharField(max_length=50)
+    experience = models.IntegerField(validators=[MaxValueValidator(30)], default=0)
     teamID = models.ForeignKey(Teams, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.firstname
-
-class Meta:
-    db_table = "Players"
 
 class Scores(models.Model):
     xCoor = models.FloatField()
@@ -45,5 +42,36 @@ class Scores(models.Model):
     isGoal = models.BooleanField()
     playerID = models.ManyToManyField(Players)
 
-class Meta:
-    db_table = "Score"
+class TeamStats(models.Model):
+    games = models.IntegerField(validators=[MaxValueValidator(110)], default=0)
+    field_goals = models.IntegerField(validators=[MaxValueValidator(5000)], default=0)
+    field_goal_attempts = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    three_point_field_goal = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    three_point_field_goal_attempts = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    three_point_field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    two_point_field_goal = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    two_point_field_goal_attempts = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    two_point_field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    free_throws = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    free_throw_attempts = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    free_throw_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    offensive_rebounds = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    defensive_rebounds = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    total_rebounds = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    assists = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    steals = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    turnovers = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    blocks = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    personal_fouls = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    points = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+
+    teamID = models.ForeignKey(Teams, null=True, on_delete=models.CASCADE)
+
+# class PlayerStats(models.Model):
+#
+#     games = models.IntegerField(validators=[MaxValueValidator(110)], default=0)
+#     points = models.FloatField()
+#     total_rebounds = models.FloatField()
+#     assists = models.FloatField()
+

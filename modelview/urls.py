@@ -9,6 +9,7 @@ urlpatterns = [
 
     path('team/addTeam', views.createTeam, name='team_insert'),
     path('team/showTeams', views.team_list, name='team_list'),
+    path('team/showStats/<int:id>', views.teamStats, name='team_stats'),
     path('update_team/<int:id>/', views.updateTeam, name='team_update'),
     path('delete_team/<int:id>/', views.deleteTeam, name='team_delete'),
 
@@ -18,5 +19,9 @@ urlpatterns = [
     path('deletePlayer/<int:id>/', views.deletePlayer, name='player_delete'),
 
     path('player/setScore', views.goToScore, name='court'),
+    path('game/setGame', views.chooseGame, name='choose_game'),
 
+    path('team/addStats', views.teamStats_form, name='team_stats_insert'),
+
+    path('test', views.team_view, name='team_test'),
 ]
