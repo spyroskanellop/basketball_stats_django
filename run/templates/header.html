@@ -1,0 +1,31 @@
+<header>
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin page</title>
+    <!-- stylesheets link-->
+<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">-->
+<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/font-awesome.min.css">-->
+<!--    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">-->
+<!--    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin.css'%}">
+</head>
+
+
+        <a href="{% url 'home' %}" >
+        <span style="font-size: 5em; color: Tomato;">
+            <i class="fas fa-basketball-ball"></i>
+        </span>
+        </a>
+        <nav>
+            <ul class="nav_links">
+                <li><a href="{% url 'team_list' %}">Teams</a></li>
+                <li><a href="{% url 'player_list' %}">Players</a></li>
+                <li><a href="{% url 'team_stats_insert' %}">Stats</a></li>
+            </ul>
+        </nav>
+    </header>
