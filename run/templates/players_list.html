@@ -5,10 +5,8 @@
     <title>Players list!!</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">
-
 </head>
 <body>
-    <h2>Under Construction</h2>
 
 <h1>Table to display players</h1>
     <table class="content-table">
@@ -22,7 +20,9 @@
                 <th>Nationality</th>
                 <th>Team's ID</th>
 
-                <th><a href="{% url 'player_insert'  %}" class="btn text-secondary px-0"><button>Add player</button></a></th>
+                <th><a href="{% url 'player_insert'  %}" class="btn text-secondary px-0"><button>Add player</button>
+                    <i class="fas fa-user-plus"></i>
+                </a></th>
             </tr>
         </thead>
         <tbody>
@@ -42,11 +42,15 @@
                     </a></td>
                     <td><a href="{% url 'player_delete' player.id %}" class="btn text-secondary px-0">
                         <button>Delete</button>
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-trash-alt"></i>
                     </a></td>
-                    <td><a href="{% url 'player_delete' player.id %}" class="btn text-secondary px-0">
-                        <button>Set Score</button>
-                        <i class="fas fa-edit"></i>
+<!--                    <td><a href="{% url 'choose_game' %}" class="btn text-secondary px-0">-->
+<!--                        <button>Set Score</button>-->
+<!--                        <i class="fas fa-edit"></i>-->
+<!--                    </a></td>-->
+                    <td><a href="{% url 'player_stats' player.id %}" class="btn text-secondary px-0">
+                        <button>Player Stats</button>
+                        <i class="fas fa-address-card"></i>
                     </a></td>
                 </tr>
             {% endfor %}

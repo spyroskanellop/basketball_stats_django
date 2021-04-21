@@ -1,4 +1,6 @@
 from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from run import views
@@ -17,11 +19,12 @@ urlpatterns = [
     path('player/showPlayers', views.player_list, name='player_list'),
     path('updatePlayer/<int:id>/', views.updatePlayer, name='player_update'),
     path('deletePlayer/<int:id>/', views.deletePlayer, name='player_delete'),
+    path('player/showStats/<int:id>', views.playerStats, name='player_stats'),
 
     path('player/setScore', views.goToScore, name='court'),
     path('game/setGame', views.chooseGame, name='choose_game'),
 
     path('team/addStats', views.teamStats_form, name='team_stats_insert'),
+    path('player/addStats', views.playerStats_form, name='player_stats_insert'),
 
-    path('test', views.team_view, name='team_test'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

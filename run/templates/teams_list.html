@@ -8,13 +8,14 @@
 </head>
 <body>
     {% include 'header.html' %}
-
     <h1>Table to display teams</h1>
     <table class="content-table">
         <thead>
             <tr>
                 <td>Team Name</td>
-                <td><a href="{% url 'team_insert'  %}" class="btn text-secondary px-0"><button>Add team</button></a></td>
+                <td><a href="{% url 'team_insert'  %}" class="btn text-secondary px-0"><button>Add team</button>
+                <i class="fas fa-user-plus"></i>
+                </a></td>
             </tr>
         </thead>
         <tbody>
@@ -27,11 +28,12 @@
                     </a></td>
                     <td><a href="{% url 'team_delete' team.id %}" class="btn text-secondary px-0">
                         <button>Delete</button>
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-trash-alt"></i>
                     </a></td>
                     <td>
                         <a href="{% url 'team_stats' team.id %}" class="btn text-secondary px-0">
                         <button>Team stats</button>
+                            <i class="fas fa-address-card"></i>
                         </a>
                     </td>
                 </tr>

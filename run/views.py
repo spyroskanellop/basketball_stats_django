@@ -2,8 +2,8 @@ import base64
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from run.models import Teams, Players
-from .forms import TeamsForm, PlayersForm, ScoresForm, TeamStatsForm
+from run.models import Teams, Players, TeamStats, PlayerStats
+from .forms import TeamsForm, PlayersForm, ScoresForm, TeamStatsForm, PlayerStatsForm
 from django.test.client import RequestFactory
 
 
@@ -139,12 +139,14 @@ def chooseGame(request):
     return render(request, "games_board.html", context)
 
 def teamStats(request, id):
-    team = Teams.objects.get(pk=id)
-    print(team.team_name)
-    # context = {'team_stats':Teams.objects.get(id=id)}
-    context = {'team': team}
-
-    return render(request, "team_stats.html", context)
+    try:
+        teamStats = TeamStats.objects.get(teamID_id=id)
+        # print from teamstats table info with teamID_id = id
+        context = {'teamStats': teamStats}
+    except Exception as e:
+        print(e)
+        context = {}
+    return render(request, "team_stats_list.html", context)
 
 def teamStats_form(request):
     form = TeamStatsForm(request.POST or None)
@@ -189,3 +191,54 @@ def teamStats_form(request):
         print('not saved')
     context = {'form': form}
     return render(request, "team_stats_form.html", context)
+
+def playerStats_form(request):
+    form = PlayerStatsForm(request.POST or None)
+    if form.is_valid():
+        fieldGoals = form.cleaned_data.get('field_goals')
+        fieldGoalsAttempts = form.cleaned_data.get('field_goal_attempts')
+
+        point3Goals = form.cleaned_data.get('three_point_field_goals')
+        point3GoalAttempts = form.cleaned_data.get('three_point_field_goal_attempts')
+
+        point2Goals = form.cleaned_data.get('two_point_field_goals')
+        point2GoalAttempts = form.cleaned_data.get('two_point_field_goal_attempts')
+
+        freeThrow = form.cleaned_data.get('free_throws')
+        freeThrowAttempts = form.cleaned_data.get('free_throw_attempts')
+
+        defensiveRebounds = form.cleaned_data.get('defensive_rebounds')
+        offensiveRebounds = form.cleaned_data.get('offensive_rebounds')
+
+        instance = form.save(commit=False)
+        percentage = fieldGoals/fieldGoalsAttempts *100
+        point3Percentage = point3Goals/point3GoalAttempts *100
+        point2Percentage = point2Goals / point2GoalAttempts * 100
+        freeThrowPercentage = freeThrow/freeThrowAttempts *100
+        totalRebounds = defensiveRebounds + offensiveRebounds
+
+        instance.field_goal_percentage = percentage
+        instance.three_point_field_goal_percentage = point3Percentage
+        instance.two_point_field_goal_percentage = point2Percentage
+        instance.free_throw_percentage = freeThrowPercentage
+        instance.total_rebounds = totalRebounds
+
+        print('saved')
+        instance.save()
+        form.save()
+        return HttpResponseRedirect('../../')
+    else:
+        print('not saved')
+    context = {'form': form}
+    return render(request, "player_stats_form.html", context)
+
+
+def playerStats(request, id):
+    try:
+        playerStats = PlayerStats.objects.get(playerID=id)
+        # print from teamstats table info with teamID_id = id
+        context = {'playerStats': playerStats}
+    except Exception as e:
+        print(e)
+        context = {}
+    return render(request, "player_stats_list.html", context)

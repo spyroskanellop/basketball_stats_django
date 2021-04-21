@@ -68,6 +68,38 @@ class TeamStats(models.Model):
 
     teamID = models.ForeignKey(Teams, null=True, on_delete=models.CASCADE)
 
+class PlayerStats(models.Model):
+    games = models.IntegerField(validators=[MaxValueValidator(110)], default=0)
+    minutes_played = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
+    field_goals = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    field_goal_attempts = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
+    three_point_field_goals = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    three_point_field_goal_attempts = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    three_point_field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
+    two_point_field_goals = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    two_point_field_goal_attempts = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    two_point_field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
+    free_throws = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    free_throw_attempts = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    free_throw_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
+    offensive_rebounds = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    defensive_rebounds = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    total_rebounds = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    assists = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    steals = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    turnovers = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    blocks = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
+    personal_fouls = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    points = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+
+    playerID = models.ForeignKey(Players, null=True, on_delete=models.CASCADE)
+
 # class PlayerStats(models.Model):
 #
 #     games = models.IntegerField(validators=[MaxValueValidator(110)], default=0)

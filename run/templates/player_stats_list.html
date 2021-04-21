@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Team stats page</title>
+</head>
+<body>
+    Table to display SEASON player stats
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">
+
+<!--    <table class="content-table">-->
+<!--        <thead>-->
+<!--            <tr>-->
+<!--                <td>Team Name</td>-->
+<!--            </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--                <tr>-->
+<!--                    <td>{{teamStats.id}}</td>-->
+<!--                    <td>{{teamStats.games}}</td>-->
+<!--                    <td>{{teamStats.field_goals}}</td>-->
+<!--                    <td>{{teamStats.field_goal_attempts}}</td>-->
+<!--                    <td>{{teamStats.field_goal_percentage}}</td>-->
+<!--                    <td>{{teamStats.games}}</td>-->
+<!--                    <td>{{teamStats.games}}</td>-->
+<!--                    <td>{{teamStats.games}}</td>-->
+<!--                    <td>{{teamStats.games}}</td>-->
+
+
+<!--                </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<table class="content-table">
+        <thead>
+            <tr>
+                <th>Games</th>
+                <th>Field Goals</th>
+                <th>Field Goal Attempts</th>
+                <th>Field Goal Percentage</th>
+                <th>3 Point Field Goals</th>
+                <th>3 Point Field Goal Attempts</th>
+                <th>3 Point Field Goal Percentage</th>
+                <th>2 Point Field Goals </th>
+                <th>2 Point Field Goal Attempts</th>
+                <th>2 Point Field Goal Percentage</th>
+                <th>Free Throws</th>
+                <th>Free Throw Attempts</th>
+                <th>Free Throw Percentage</th>
+                <th>Offensive Rebounds</th>
+                <th>Defensive Rebounds</th>
+                <th>Total Rebounds</th>
+                <th>Assists</th>
+                <th>Steals</th>
+                <th>Turnovers</th>
+                <th>Blocks</th>
+                <th>Personal Fouls</th>
+                <th>Points</th>
+                <th>Player's ID</th>
+            </tr>
+            <a href="{% url 'player_stats_insert' %}" class="btn text-secondary px-0">
+                        <button>Add player Season Stats</button>
+                        <i class="fas fa-edit"></i>
+                    </a>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>{{playerStats.games}}</td>
+                    <td>{{playerStats.field_goals}}</td>
+                    <td>{{playerStats.field_goal_attempts}}</td>
+                    <td>{{playerStats.field_goal_percentage}}</td>
+                    <td>{{playerStats.three_point_field_goal}}</td>
+                    <td>{{playerStats.three_point_field_goal_attempts}}</td>
+                    <td>{{playerStats.three_point_field_goal_percentage}}</td>
+                    <td>{{playerStats.two_point_field_goal}}</td>
+                    <td>{{playerStats.two_point_field_goal_attempts}}</td>
+                    <td>{{playerStats.two_point_field_goal_percentage}}</td>
+                    <td>{{playerStats.free_throws}}</td>
+                    <td>{{playerStats.free_throw_attempts}}</td>
+                    <td>{{playerStats.free_throw_percentage}}</td>
+                    <td>{{playerStats.offensive_rebounds}}</td>
+                    <td>{{playerStats.defensive_rebounds}}</td>
+                    <td>{{playerStats.total_rebounds}}</td>
+                    <td>{{playerStats.assists}}</td>
+                    <td>{{playerStats.steals}}</td>
+                    <td>{{playerStats.turnovers}}</td>
+                    <td>{{playerStats.blocks}}</td>
+                    <td>{{playerStats.personal_fouls}}</td>
+                    <td>{{playerStats.points}}</td>
+                    <td>{{playerStats.playerID}}</td>
+                </tr>
+        </tbody>
+    </table>
+</body>
+</html>

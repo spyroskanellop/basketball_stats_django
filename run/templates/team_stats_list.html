@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Team stats page</title>
+</head>
+<body>
+    Table to display SEASON team stats
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">
+<table class="content-table">
+        <thead>
+            <tr>
+                <th>Games</th>
+                <th>Field Goals</th>
+                <th>Field Goal Attempts</th>
+                <th>Field Goal Percentage</th>
+                <th>3 Point Field Goals</th>
+                <th>3 Point Field Goal Attempts</th>
+                <th>3 Point Field Goal Percentage</th>
+                <th>2 Point Field Goals </th>
+                <th>2 Point Field Goal Attempts</th>
+                <th>2 Point Field Goal Percentage</th>
+                <th>Free Throws</th>
+                <th>Free Throw Attempts</th>
+                <th>Free Throw Percentage</th>
+                <th>Offensive Rebounds</th>
+                <th>Defensive Rebounds</th>
+                <th>Total Rebounds</th>
+                <th>Assists</th>
+                <th>Steals</th>
+                <th>Turnovers</th>
+                <th>Blocks</th>
+                <th>Personal Fouls</th>
+                <th>Points</th>
+                <th>Team's ID</th>
+            </tr>
+        <a href="{% url 'team_stats_insert' %}" class="btn text-secondary px-0">
+                        <button>Add team Season Stats</button>
+                        <i class="fas fa-edit"></i>
+                    </a>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>{{teamStats.games}}</td>
+                    <td>{{teamStats.field_goals}}</td>
+                    <td>{{teamStats.field_goal_attempts}}</td>
+                    <td>{{teamStats.field_goal_percentage}}</td>
+                    <td>{{teamStats.three_point_field_goals}}</td>
+                    <td>{{teamStats.three_point_field_goal_attempts}}</td>
+                    <td>{{teamStats.three_point_field_goal_percentage}}</td>
+                    <td>{{teamStats.two_point_field_goals}}</td>
+                    <td>{{teamStats.two_point_field_goal_attempts}}</td>
+                    <td>{{teamStats.two_point_field_goal_percentage}}</td>
+                    <td>{{teamStats.free_throws}}</td>
+                    <td>{{teamStats.free_throw_attempts}}</td>
+                    <td>{{teamStats.free_throw_percentage}}</td>
+                    <td>{{teamStats.offensive_rebounds}}</td>
+                    <td>{{teamStats.defensive_rebounds}}</td>
+                    <td>{{teamStats.total_rebounds}}</td>
+                    <td>{{teamStats.assists}}</td>
+                    <td>{{teamStats.steals}}</td>
+                    <td>{{teamStats.turnovers}}</td>
+                    <td>{{teamStats.blocks}}</td>
+                    <td>{{teamStats.personal_fouls}}</td>
+                    <td>{{teamStats.points}}</td>
+                    <td>{{teamStats.teamID}}</td>
+                </tr>
+        </tbody>
+    </table>
+</body>
+</html>

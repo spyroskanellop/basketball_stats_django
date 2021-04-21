@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Team Stats</title>
+    {% load crispy_forms_tags %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
+</head>
+<body>
+    <form action="" method="POST" >
+        {% csrf_token %}
+        {{ form|crispy}}
+<!--        <button type="submit" name="submit"> Save team</button>-->
+        <button type="submit">Save</button>
+    </form>
+
+</body>
+</html>

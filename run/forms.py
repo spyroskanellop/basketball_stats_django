@@ -1,5 +1,5 @@
 from django import forms
-from .models import Teams, Players, Scores, TeamStats
+from .models import Teams, Players, Scores, TeamStats, PlayerStats
 
 # class TeamsForm(ModelForm):
 #     class Meta:
@@ -69,3 +69,31 @@ class TeamStatsForm(forms.ModelForm):
         field_goals = self.cleaned_data.get('field_goals')
          # check if input has numbers
         return field_goals
+
+
+class PlayerStatsForm(forms.ModelForm):
+    class Meta:
+        model = PlayerStats
+        exclude = ['field_goal_percentage', 'three_point_field_goal_percentage', 'two_point_field_goal_percentage',
+                   'free_throw_percentage', 'total_rebounds']
+        fields = "__all__"
+        labels = {
+            'games': 'Games played',
+            'fields_goals': 'field goals',
+            'field_goal_attempts': 'field goal attempts',
+            'three_point_field_goal': '3 point field goal',
+            'three_point_field_goal_attempts': '3 point field goal attempts',
+            'two_point_field_goal': '2 point field goal',
+            'two_point_field_goal_attempts': '2 point field goal attempts',
+            'free_throws': 'free throws',
+            'free_throw_attempts': 'free throw attempts',
+            'offensive_rebounds': 'offensive rebounds',
+            'defensive_rebounds': 'defensive rebounds',
+            'assists': 'assists',
+            'steals': 'steals',
+            'blocks': 'blocks',
+            'turnovers': 'turnovers',
+            'personal_fouls': 'personal_fouls',
+            'points': 'points',
+            'teamID': 'Team id(number)',
+        }
