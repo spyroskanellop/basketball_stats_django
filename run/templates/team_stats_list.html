@@ -8,6 +8,8 @@
     Table to display SEASON team stats
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">
+    {% include 'header.html' %}
+
 <table class="content-table">
         <thead>
             <tr>
@@ -35,10 +37,19 @@
                 <th>Points</th>
                 <th>Team's ID</th>
             </tr>
+            {% if not teamStats.id %}
+
         <a href="{% url 'team_stats_insert' %}" class="btn text-secondary px-0">
                         <button>Add team Season Stats</button>
+                <i class="fas fa-user-plus"></i>
+                    </a>
+            {% endif %}
+            {% if teamStats.id %}
+        <a href="{% url 'team_stats_update' teamStats.id %}" class="btn text-secondary px-0">
+                        <button>Edit team Season Stats</button>
                         <i class="fas fa-edit"></i>
                     </a>
+        {% endif %}
         </thead>
         <tbody>
                 <tr>
@@ -46,10 +57,10 @@
                     <td>{{teamStats.field_goals}}</td>
                     <td>{{teamStats.field_goal_attempts}}</td>
                     <td>{{teamStats.field_goal_percentage}}</td>
-                    <td>{{teamStats.three_point_field_goals}}</td>
+                    <td>{{teamStats.three_point_field_goal}}</td>
                     <td>{{teamStats.three_point_field_goal_attempts}}</td>
                     <td>{{teamStats.three_point_field_goal_percentage}}</td>
-                    <td>{{teamStats.two_point_field_goals}}</td>
+                    <td>{{teamStats.two_point_field_goal}}</td>
                     <td>{{teamStats.two_point_field_goal_attempts}}</td>
                     <td>{{teamStats.two_point_field_goal_percentage}}</td>
                     <td>{{teamStats.free_throws}}</td>

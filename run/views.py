@@ -1,7 +1,9 @@
 import base64
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
+from django.views.generic.base import TemplateView
+
 from run.models import Teams, Players, TeamStats, PlayerStats
 from .forms import TeamsForm, PlayersForm, ScoresForm, TeamStatsForm, PlayerStatsForm
 from django.test.client import RequestFactory
@@ -16,31 +18,10 @@ def home(request):
 def admin(request):
     return render(request, 'admin.html')
 
-# def createTeam(request):
-#     form = TeamsForm()
-#     if request.method == 'POST':
-#         form = TeamsForm(request.POST)
-#             print(form.cleaned_data)
-#         if form.is_valid():
-#             print('saved')
-#             form.save()
-#             return HttpResponseRedirect('showTeams')
-#         else:
-#             print('not saved')
-#     context = {'form': form}
-#     return render(request, "teams_form.html", context)
-
 def createTeam(request):
     form = TeamsForm(request.POST or None)
     if form.is_valid():
-        # instance = form.save(commit=False)
-        # instance.team_name = 'hi'
-
-        # print(request.POST)
-        # print(form.cleaned_data)
-        # print(teamName)
         print('saved')
-        # instance.save()
         form.save()
         return HttpResponseRedirect('showTeams')
     else:
@@ -61,7 +42,6 @@ def updateTeam(request, id):
             print('not updated')
 
     context = {'form': form}
-    # context = {'team_name': team.team_name}
     return render(request, "teams_form.html", context)
 
 def team_view(request):
@@ -69,7 +49,7 @@ def team_view(request):
     context= {"team_name": team.team_name}
     return render(request, "test.html", context)
 
-def team_list(request):
+def viewTeam(request):
     context = {'team_list':Teams.objects.all()}
     return render(request, "teams_list.html", context)
 
@@ -83,7 +63,7 @@ def deleteTeam(request, id):
 
     return render(request, "delete_team.html", context)
 
-def player_form(request):
+def createPlayer(request):
     form = PlayersForm()
     if request.method == 'POST':
         form = PlayersForm(request.POST)
@@ -97,7 +77,7 @@ def player_form(request):
     return render(request, "players_form.html", {'form':form})
 
 
-def player_list(request):
+def viewPlayer(request):
     context= {'player_list':Players.objects.all()}
 
     return render(request, "players_list.html", context)
@@ -148,8 +128,14 @@ def teamStats(request, id):
         context = {}
     return render(request, "team_stats_list.html", context)
 
-def teamStats_form(request):
-    form = TeamStatsForm(request.POST or None)
+def updateTeamStats(request, id):
+    try:
+        teamStats = TeamStats.objects.get(pk=id)
+        form = TeamStatsForm(request.POST or None, instance=teamStats)
+    except Exception as e:
+        print(e)
+        form = TeamStatsForm(request.POST or None)
+
     if form.is_valid():
         fieldGoals = form.cleaned_data.get('field_goals')
         fieldGoalsAttempts = form.cleaned_data.get('field_goal_attempts')
@@ -186,13 +172,59 @@ def teamStats_form(request):
         print('saved')
         instance.save()
         form.save()
-        return HttpResponseRedirect('../../')
+        return HttpResponseRedirect('../../../')
     else:
         print('not saved')
     context = {'form': form}
     return render(request, "team_stats_form.html", context)
 
-def playerStats_form(request):
+def createTeamStats(request):
+
+    form = TeamStatsForm(request.POST or None)
+
+    if form.is_valid():
+        fieldGoals = form.cleaned_data.get('field_goals')
+        fieldGoalsAttempts = form.cleaned_data.get('field_goal_attempts')
+
+        point3Goals = form.cleaned_data.get('three_point_field_goal')
+        point3GoalAttempts = form.cleaned_data.get('three_point_field_goal_attempts')
+
+        point2Goals = form.cleaned_data.get('two_point_field_goal')
+        point2GoalAttempts = form.cleaned_data.get('two_point_field_goal_attempts')
+
+        freeThrow = form.cleaned_data.get('free_throws')
+        freeThrowAttempts = form.cleaned_data.get('free_throw_attempts')
+
+        defensiveRebounds = form.cleaned_data.get('defensive_rebounds')
+        offensiveRebounds = form.cleaned_data.get('offensive_rebounds')
+
+        instance = form.save(commit=False)
+        # percentage = str(fieldGoals / fieldGoalsAttempts *100) + '%'
+        percentage = fieldGoals/fieldGoalsAttempts *100
+        point3Percentage = point3Goals/point3GoalAttempts *100
+        point2Percentage = point2Goals / point2GoalAttempts * 100
+        freeThrowPercentage = freeThrow/freeThrowAttempts *100
+        totalRebounds = defensiveRebounds + offensiveRebounds
+
+        instance.field_goal_percentage = percentage
+        instance.three_point_field_goal_percentage = point3Percentage
+        instance.two_point_field_goal_percentage = point2Percentage
+        instance.free_throw_percentage = freeThrowPercentage
+        instance.total_rebounds = totalRebounds
+
+        # print(request.POST)
+        # print(form.cleaned_data)
+        # print(teamName)
+        print('saved')
+        instance.save()
+        form.save()
+        return HttpResponseRedirect('../../../')
+    else:
+        print('not saved')
+    context = {'form': form}
+    return render(request, "team_stats_form.html", context)
+
+def createPlayerStats(request):
     form = PlayerStatsForm(request.POST or None)
     if form.is_valid():
         fieldGoals = form.cleaned_data.get('field_goals')
@@ -233,7 +265,7 @@ def playerStats_form(request):
     return render(request, "player_stats_form.html", context)
 
 
-def playerStats(request, id):
+def updatePlayerStats(request, id):
     try:
         playerStats = PlayerStats.objects.get(playerID=id)
         # print from teamstats table info with teamID_id = id
@@ -242,3 +274,11 @@ def playerStats(request, id):
         print(e)
         context = {}
     return render(request, "player_stats_list.html", context)
+
+class TeamChartView(TemplateView):
+    template_name = 'charts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = Players.objects.all()
+        return context

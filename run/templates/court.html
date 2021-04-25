@@ -11,6 +11,7 @@
             crossorigin="anonymous"></script>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/court.css'%}">
+    {% include 'header.html' %}
 </head>
 <body>
 <h2>hit left click for in right click for miss</h2>
@@ -33,8 +34,11 @@
             "X": x,
             "Y": y
         }
+<!--      buckets.push(loc);-->
+<!--      document.getElementById('buckets').innerHTML = loc.X;-->
       buckets.push(loc);
-      document.getElementById('buckets').innerHTML = buckets;
+      document.getElementById('buckets').innerHTML = buckets[0].X;
+
       console.log(buckets);
       console.log("ITS IN");
         $("body").append(

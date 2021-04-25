@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test form</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #03080a;
+        }
+        .container {
+            width: 80%;
+            padding: 20px;
+        }
+        .container h2 {
+            width: 100%;
+            color: rgba(250, 100, 0, 0.8);
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .container .row100 {
+            position: relative;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(autofit, minmax(300px, 1fr));
+        }
+        .container .row100 .col {
+            position: relative;
+            width: 100%;
+            padding: 0 10px;
+            margin: 30px 0 10px;
+            transition: 0.5s;
+        }
+
+        .container .row100 .inputBox {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            color: rgba(250, 100, 0, 0.8);
+        }
+
+        .container .row100 .inputBox input{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            box-shadow: none;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            padding: 0 10px;
+            z-index: 1;
+            color: #000;
+        }
+
+        .container .row100 .inputBox .text{
+            position: absolute;
+            top: 0;
+            left: 0;
+            line-height: 40px;
+            font-size: 18px;
+            padding: 0 10px;
+            display: block;
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .container .row100 .inputBox input:focus + .text,
+        .container .row100 .inputBox input:hover + .text,
+        .container .row100 .inputBox input:valid + .text{
+            top: -35px;
+            left: -10px;
+        }
+        .container .row100 .inputBox .line {
+            position: absolute;
+            bottom: 0;
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: rgba(250, 100, 0, 0.8);
+            transition: 0.5s;
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+        .container .row100 .inputBox input:focus ~ .line,
+        .container .row100 .inputBox input:hover ~ .line,
+        .container .row100 .inputBox input:valid ~ .line{
+            height: 100%;
+        }
+
+        input[type="submit"] {
+            border: none;
+            padding: 7px 35px;
+            cursor: pointer;
+            outline: none;
+            background: rgba(250, 100, 0, 0.8);
+            color: #000;
+            font-size: 18px;
+            border-radius: 2px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Form</h2>
+<!--        <div class="row100">-->
+<!--            <div class="col">-->
+<!--                <div class="inputBox">-->
+<!--                    <input type="text" name="" required="required">-->
+<!--                    <span class="text">First Name</span>-->
+<!--                    <span class="line"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="row100">-->
+<!--            <div class="col">-->
+<!--                <div class="inputBox">-->
+<!--                    <input type="text" name="" required="required">-->
+<!--                    <span class="text">Last Name</span>-->
+<!--                    <span class="line"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        {% for field in form %}
+            <div class="row100">
+                <div class="col">
+                    <div class="inputBox">
+                        <input type="text" name="" required="required">
+                        <label for="{{ field.id_for_label }}" class="text">{{field.html_name}}</label>
+                        <label class="line"></label>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+        <div class="col">
+            <div class="inputBox">
+                <input type="submit" value="Save">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
