@@ -7,7 +7,7 @@ from run import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', views.goHome, name='home'),
 
     path('team/addTeam', views.createTeam, name='team_insert'),
     path('team/showTeams', views.viewTeam, name='team_list'),
@@ -28,5 +28,18 @@ urlpatterns = [
     path('team/updateStats/<int:id>/', views.updateTeamStats, name='team_stats_update'),
     path('player/addStats', views.createPlayerStats, name='player_stats_insert'),
 
-    path('charts', views.TeamChartView.as_view()),
+    path('charts', views.TeamChartView.as_view(), name='charts'),
+    path('3point', views.Point3ChartView.as_view(), name='3_point_chart'),
+    path('2point', views.Point2ChartView.as_view(), name='2_point_chart'),
+    path('free_throw', views.FreeThrowChartView.as_view(), name='free_throw_chart'),
+    path('free_throw', views.FreeThrowChartView.as_view(), name='free_throw_chart'),
+    path('free_throw2', views.FreeThrowChartView2.as_view(), name='free_throw_chart'),
+
+    # path('pie', views.goToPie, name='pie'),
+    path('doughnut', views.goToDoughnut, name='doughnut'),
+
+    path('', views.goHome, name='home'),
+    path('test/form', views.createPlayer2, name='player_insert2'),
+    path('button', views.goToButton, name='button'),
+
 ]

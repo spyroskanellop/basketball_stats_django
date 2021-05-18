@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Test form</title>
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=KoHo:wght@300&display=swap" rel="stylesheet">
+
     <style>
         *{
             margin: 0;
@@ -26,6 +30,9 @@
             font-size: 36px;
             text-align: center;
             margin-bottom: 10px;
+            margin-top: 10px;
+            font-family: 'KoHo', sans-serif;
+
         }
         .container .row100 {
             position: relative;
@@ -86,10 +93,11 @@
             display: block;
             width: 100%;
             height: 2px;
-            background: rgba(250, 100, 0, 0.8);
+            background-image: linear-gradient(to right, #8b4a03, #7b4403, #6b3d03, #5c3703, #4e3002);
             transition: 0.5s;
-            border-radius: 2px;
+            border-radius: 5px;
             pointer-events: none;
+            box-shadow: 0 2px 10px orange;
         }
 
         .container .row100 .inputBox input:focus ~ .line,
@@ -106,51 +114,48 @@
             background: rgba(250, 100, 0, 0.8);
             color: #000;
             font-size: 18px;
-            border-radius: 2px;
+            border-radius: 5px;
+        }
+        .image {
+            min-height: 30vh;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 40%;
+            background: url({% static 'img/ball2.jpg' %});
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
         }
     </style>
 
 </head>
 <body>
+    <div class="image"></div>
+
     <div class="container">
-        <h2>Form</h2>
-<!--        <div class="row100">-->
-<!--            <div class="col">-->
-<!--                <div class="inputBox">-->
-<!--                    <input type="text" name="" required="required">-->
-<!--                    <span class="text">First Name</span>-->
-<!--                    <span class="line"></span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="row100">-->
-<!--            <div class="col">-->
-<!--                <div class="inputBox">-->
-<!--                    <input type="text" name="" required="required">-->
-<!--                    <span class="text">Last Name</span>-->
-<!--                    <span class="line"></span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
+        <h2>Add team</h2>
+        <form action="" method="POST">
+        {% csrf_token %}
         {% for field in form %}
             <div class="row100">
                 <div class="col">
                     <div class="inputBox">
-                        <input type="text" name="" required="required">
-                        <label for="{{ field.id_for_label }}" class="text">{{field.html_name}}</label>
+                        <input type="text" name="team_name" required="required">
+                        <label for="{{ field.id_for_label }}" class="text">Enter team name</label>
+                        <!--  Add if statement     -->
+                        <placeholder>{{form.team_name}}</placeholder>
                         <label class="line"></label>
                     </div>
                 </div>
             </div>
-
         {% endfor %}
         <div class="col">
             <div class="inputBox">
                 <input type="submit" value="Save">
             </div>
         </div>
+        </form>
     </div>
 </body>
 </html>

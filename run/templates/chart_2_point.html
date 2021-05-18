@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test for charts</title>
+    <title>3 point chart</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
-<!--    {% for player in qs %}-->
-<!--        {{player.firstname}}-->
-<!--    {% endfor %}-->
+    {% for team in qs %}
+        {{team.teamID}}
+    {% endfor %}
 
     <script>
     $(document).ready(function(){
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: [{% for player in qs %}'{{player.firstname}} {{player.lastname}}',{% endfor %}],
+                labels: [{% for team in qs %}'{{team.teamID}}',{% endfor %}],
                 datasets: [{
-                    label: 'Weight',
-                    data: [{% for player in qs %}{{player.weight}},{% endfor %}],
+                    label: '2 point field goal percentage %',
+                    data: [{% for team in qs %}{{team.two_point_field_goal_percentage}}*100,{% endfor %}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

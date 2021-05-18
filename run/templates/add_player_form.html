@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form test</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% load static %}
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* background: linear-gradient(-30deg, #CC0000 0%, white 50%, white 50%, #00008B 100%); */
+            background-image: linear-gradient(147deg, #166d3b 0%, #000000 74%);
+            /* filter: hue-rotate(120deg); */
+            animation: animate 10s linear infinite;
+        }
+        @keyframes animate {
+            0%
+            {
+                filter: hue-rotate(0deg);
+            }
+            100%
+            {
+                filter: hue-rotate(360deg);
+            }
+        }
+        .box {
+            position: relative;
+            padding: 50px;
+            width: 700px;
+            height: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            box-shadow:0 5px 35px rgba(0 ,0, 0, 0.2);
+        }
+        .box.fadeIn{
+            animation: fadeIn 3s;
+        }
+        .box::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 5px;
+            pointer-events: none;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 15%, transparent 85%, rgba(255, 255, 255, 0.3) 100%);
+        }
+        .box .form{
+            position: relative;
+            width: 100%;
+        }
+        .box .form h2 {
+            color: #A9A9A9;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+        .box .form .inputBox {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .box .form .inputBox input {
+            width: 100%;
+            outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            padding: 8px 10px;
+            padding-left: 35px;
+            border-radius: 6px;
+            color: #A9A9A9;
+            font-size: 16px;
+            font-weight: 300;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 255);
+        }
+        .box .form .inputBox input::placeholder {
+            color: #A9A9A9;
+        }
+        .box .form .inputBox input[type="submit"] {
+            display: block;
+            background: #fff;
+            color: #111;
+            margin : 0 auto;
+            max-width: 100px;
+            padding: 8px 10px;
+            box-shadow: inset 0 0 25px rgba(0,0,0,0.2);
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: absolute;
+            bottom: -55px;
+            right: 40%;
+         }
+        .box .form .inputBox .fas
+        {
+            position: relative;
+            top: -28px;
+            left: 10px;
+        }
+        .box .form a {
+            color: #A9A9A9;
+        }
+        .img {
+            position: absolute;
+            display: block;
+            margin: 0 auto;
+        }
+        .img.fade{
+            animation: fadeOut 3s;
+        }
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* RIGHT-LEFT COLUMNS */
+        .column-1{
+            float: left;
+            width: 45%;
+            margin-right: 10px;
+        }
+        .column-2{
+            float: right;
+            width: 45%;
+        }
+
+        /* SELECT BOX */
+        .fas {
+            position: absolute;
+            height: 100%;
+            font-size: 30px;
+            top: 10px;
+            right: 20px;
+        }
+
+        select {
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 255);
+            font-size: 16px;
+            padding: 8px 10px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+            margin-top: 30px;
+            outline: none;
+            color: #A9A9A9;
+            padding-left: 35px;
+            border-radius: 6px;
+        }
+        .select option {
+            background: red;
+            color: #A9A9A9;
+
+
+        }
+        .select-box{
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+    <section>
+        <input type="image" src="{% static 'img/nba_crop.png' %}" class="img" name="submit"/>
+        <div class="box">
+            <div class="form">
+                <h2>New player form</h2>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="column-1">
+                        <div class="inputBox">
+                            {{form.number}}
+                        </div>
+                        <div class="inputBox">
+                            {{form.firstname}}
+                        </div>
+                        <div class="inputBox">
+                            {{form.lastname}}
+                        </div>
+                        <div class="inputBox">
+                            {{form.height}}
+                        </div>
+                        <div class="inputBox">
+                            {{form.weight}}
+                        </div>
+                    </div>
+
+                    <div class="column-2">
+                        <div class="inputBox">
+                            {{form.dob}}
+                        </div>
+                        <div class="select">
+                            <select class="select-box" name="position" id="position">
+                                <option selected disabled>Choose a position</option>
+                                {% for x,y in form.fields.position.choices %}-->
+                                    <div class="option">
+                                        <option value="{{ x }}">{{ y }}</option>
+
+                                    </div>
+                                {% endfor %}
+                            </select>
+<!--                            <span class="custom-arrow"><i class="fas fa-angle-right dropdown"></i></span>-->
+                        </div>
+                        {{form.teamID}}
+                        {{form.dominant_hand}}
+
+                        <div class="inputBox">
+                                {{form.nationality}}
+                        </div>
+                        <div class="inputBox">
+                                {{form.experience}}
+                        </div>
+                    </div>
+
+                    <div class="inputBox">
+                        <input type="submit" value="Save">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            document.querySelector('section').style.animation = 0;
+
+            $('.box').css("visibility", "hidden");
+
+            $('.img').click(function() {
+                $('.img').addClass('fade');
+                setTimeout(() => {
+                    $('.box').addClass('fadeIn');
+                    $('.box').css("visibility", "visible");
+                    $('.img').css("visibility", "hidden");
+                 }, 2500);
+                document.querySelector('section').style.animation = '';
+            });
+
+            const selectBox = document.querySelectorAll(".select-box");
+            const selected = document.querySelectorAll(".selected");
+            const optionsList = document.querySelectorAll(".option");
+
+            selectBox.forEach((e) => {
+                e.addEventListener("click", ()=> {
+                e.children[1].classList.toggle("active");
+                e.children[0].children[0].classList.toggle('rotate');
+            });
+            });
+
+            optionsList.forEach(o =>{
+                o.addEventListener("click", ()=> {
+                    o.parentNode.parentNode.children[0].innerHTML = o.querySelector("label").innerHTML;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

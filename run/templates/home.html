@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% load static %}
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            background: url({% static 'img/basketball-court.png' %});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        .side-bar {
+            background: rgba(255, 255, 255, 0.1);
+            background-filter: blur(15px);
+            width: 290px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            overflow-y: auto;
+            transition: 0.5s ease;
+            transition-property: left;
+        }
+        .side-bar .menu {
+            width: 100%;
+            margin-top: 80px;
+        }
+        .side-bar .menu .item {
+            position: relative;
+            cursor: pointer;
+        }
+        .side-bar .menu .item a {
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            display: block;
+            padding: 5px 30px;
+            line-height: 60px;
+        }
+        .side-bar .menu .item a:hover {
+            background: #8621F8;
+            transition: 0.3s ease;
+        }
+        .side-bar .menu .item i{
+            margin-right: 15px;
+        }
+        .side-bar .menu .item a .dropdown {
+            position: absolute;
+            right: 0;
+            margin: 20px;
+            transition: 0.3s ease;
+        }
+        .side-bar .menu .item .sub-menu {
+            background: rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+        .side-bar .menu .item .sub-menu a{
+            padding-left: 80px;
+            box-shadow: 5px 2px 10px rgba(0, 0, 0, 255);
+        }
+        .rotate{
+            transform: rotate(90deg);
+        }
+        .close-btn {
+            position: absolute;
+            color: #fff;
+            font-size: 20px;
+            right: 0;
+            margin: 25px;
+            cursor: pointer;
+        }
+        .menu-btn {
+            position: absolute;
+            color: #fff;
+            font-size: 20px;
+            margin: 25px;
+            cursor: pointer;
+        }
+        .side-bar.active{
+            left: 0;
+        }
+        .box {
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 200px;
+            transform-style: preserve-3d;
+            perspective: 2000px;
+            transition: 0.1s ease;
+        }
+        .box:before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border-top: 10px solid #fff;
+            border-left: 10px solid #fff;
+            box-sizing: border-box;
+            transition: 0.1s ease;
+        }
+        .box:after{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border-bottom: 10px solid #fff;
+            border-right: 10px solid #fff;
+            box-sizing: border-box;
+            transition: 0.1s ease;
+
+        }
+        .text {
+            position: absolute;
+            top: 30px;
+            left: -30px;
+            background: #262626;
+            width: calc(100% + 60px);
+            height: calc(100% - 60px);
+            transition: 0.5s ease;
+        }
+        .box:hover .text{
+            transform: rotateY(30deg) skewY(-5deg);
+            transition: 0.5s ease;
+
+        }
+        .box:hover {
+            transform: translate(-50%, -50%) rotateY(-30deg) skewY(5deg);
+            transition: 0.5s ease;
+
+        }
+        .text div {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+            padding: 40px 80px;
+            box-sizing: border-box;
+            text-align: center;
+            z-index: 3;
+            transition: 0.5s ease;
+        }
+        .text div p {
+            margin: 0 0 20px;
+            padding: 0;
+            color: #fff;
+            font-size: 18px;
+        }
+        .fas.fa-quote-left,.fas.fa-quote-right {
+            width: 40px;
+            height: 40px;
+            top-margin: 0;
+            background: #fff;
+            color: #262626;
+            text-align: center;
+            line-height: 40px !important;
+            font-size: 20px !important;
+        }
+        .fas.fa1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .fas.fa2 {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <i class="fas fa-quote-left fa2" aria-hidden="true"></i>
+        <div class="text">
+            <i class="fas fa-quote-right fa1" aria-hidden="true"></i>
+            <div>
+                <p>
+                    If you torture the data long enough,
+                    it will confess
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="menu-btn">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="side-bar">
+        <div class="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="menu">
+            <div class="item"><a class="sub-btn"><i class="fas fa-table"></i>Tables <i class="fas fa-angle-right dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="{% url 'team_list' %}" class="sub-item">View Teams </a>
+                    <a href="{% url 'player_list' %}" class="sub-item">View Players </a>
+                </div>
+            </div>
+
+            <div class="item"><a class="sub-btn"><i class="fas fa-th"></i>Forms <i class="fas fa-angle-right dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="{% url 'team_insert' %}" class="sub-item">Add Team </a>
+                    <a href="{% url 'player_insert2' %}" class="sub-item">Add Player </a>
+                </div>
+            </div>
+            <div class="item"><a class="sub-btn"><i class="far fa-star"></i>Top3 Teams <i class="fas fa-angle-right dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="{% url '3_point_chart' %}" class="sub-item">3 point </a>
+                    <a href="{% url '2_point_chart' %}" class="sub-item">2 point</a>
+                    <a href="{% url 'free_throw_chart' %}" class="sub-item">Free throws</a>
+                    <a href="{% url '2_point_chart' %}" class="sub-item">Assists</a>
+                    <a href="{% url '2_point_chart' %}" class="sub-item">Defensive Rebounds</a>
+                    <a href="{% url '2_point_chart' %}" class="sub-item">Offensive Rebounds</a>
+                    <a href="{% url '2_point_chart' %}" class="sub-item">Steals</a>
+                    <a href="{% url '2_point_chart' %}" class="sub-item">2 point</a>
+
+                </div>
+            </div>
+<!--            <div class="item"><a href="#"><i class="fas fa-info-circle"></i>Info <i class="fas fa-angle-right dropdown"></i></a></div>-->
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.sub-btn').click(function(){
+                $(this).next('.sub-menu').slideToggle();
+                $(this).find('.dropdown').toggleClass('rotate');
+            });
+
+            $('.menu-btn').click(function(){
+                $('.side-bar').addClass('active');
+                $('.menu-btn').css("visibility", "hidden");
+                $('.box').css("visibility", "hidden");
+            });
+
+            $('.close-btn').click(function(){
+                $('.side-bar').removeClass('active');
+                $('.menu-btn').css("visibility", "visible");
+                $('.box').css("visibility", "visible");
+            });
+        });
+
+    </script>
+</body>
+</html>

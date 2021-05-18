@@ -5,10 +5,14 @@ from .models import Teams, Players, Scores, TeamStats, PlayerStats
 #     class Meta:
 #         model = Teams
 #         fields = "__all__"
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class TeamsForm(forms.ModelForm):
 
     team_name = forms.CharField(label='Team name',
-                               widget=forms.TextInput(attrs={"placeholder": "Team name"}))
+                               widget=forms.TextInput(attrs={'placeholder': 'Team name', 'class': 'text'}))
     class Meta:
         model = Teams
         fields = ['team_name']
@@ -19,6 +23,31 @@ class TeamsForm(forms.ModelForm):
         return team_name
 
 class PlayersForm(forms.ModelForm):
+    POSITION = (
+        ('Point guard', 'Point guard'),
+        ('Shooting guard', 'Shooting guard'),
+        ('Small forward', 'Small forward'),
+        ('Power forward', 'Power forward'),
+        ('Center', 'Center'),
+    )
+    DOMINANT_HAND = (
+        ('Right hand', 'Right hand'),
+        ('Left hand', 'Left hand'),
+    )
+    number = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Number', 'class': 'inputBox'}))
+    firstname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First name', 'class': 'inputBox'}))
+    lastname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last name', 'class': 'inputBox'}))
+    dob = forms.DateField(widget=DateInput)
+    height = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Height', 'class': 'inputBox'}))
+    weight = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Weight', 'class': 'inputBox'}))
+    position = forms.ChoiceField(choices=POSITION)
+    # dominant_hand = forms.ChoiceField(choices=DOMINANT_HAND, widget=forms.Select(attrs={'class':'select-box'}))
+    dominant_hand = forms.ChoiceField(choices=DOMINANT_HAND)
+
+    nationality = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nationality', 'class': 'inputBox'}))
+    experience = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Experience', 'class': 'inputBox'}))
+
+    teamID = forms.ModelChoiceField(queryset=Teams.objects.all(), widget=forms.Select(attrs={'class':'inputBox'}))
     class Meta:
         model = Players
         fields = "__all__"

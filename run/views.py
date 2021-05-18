@@ -1,5 +1,4 @@
-import base64
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
@@ -7,10 +6,6 @@ from django.views.generic.base import TemplateView
 from run.models import Teams, Players, TeamStats, PlayerStats
 from .forms import TeamsForm, PlayersForm, ScoresForm, TeamStatsForm, PlayerStatsForm
 from django.test.client import RequestFactory
-
-
-# Create your views here.
-
 
 def home(request):
     return render(request, 'admin.html')
@@ -27,11 +22,12 @@ def createTeam(request):
     else:
         print('not saved')
     context = {'form': form}
-    return render(request, "teams_form.html", context)
+    return render(request, "add_team_form.html", context)
 
 def updateTeam(request, id):
     team = Teams.objects.get(pk=id)
     form = TeamsForm(instance=team)
+    print(form)
     if request.method == 'POST':
         form = TeamsForm(request.POST, instance=team)
         if form.is_valid():
@@ -42,12 +38,13 @@ def updateTeam(request, id):
             print('not updated')
 
     context = {'form': form}
-    return render(request, "teams_form.html", context)
+    return render(request, "add_team_form.html", context)
+    # return render(request, "teams_form.html", context)
 
-def team_view(request):
-    team = Teams.objects.get(id=1)
-    context= {"team_name": team.team_name}
-    return render(request, "test.html", context)
+# def team_view(request):
+#     team = Teams.objects.get(id=1)
+#     context= {"team_name": team.team_name}
+#     return render(request, "test.html", context)
 
 def viewTeam(request):
     context = {'team_list':Teams.objects.all()}
@@ -78,9 +75,20 @@ def createPlayer(request):
 
 
 def viewPlayer(request):
-    context= {'player_list':Players.objects.all()}
+    # context= {'player_list':Players.objects.all()}
 
-    return render(request, "players_list.html", context)
+    player_list = Players.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(player_list, 10)
+    try:
+        players = paginator.page(page)
+    except PageNotAnInteger:
+        players = paginator.page(1)
+    except EmptyPage:
+        players = paginator.page(paginator.num_pages)
+
+    return render(request, "players_list.html", {'players': players})
 
 def updatePlayer(request, id):
     player = Players.objects.get(pk=id)
@@ -275,10 +283,105 @@ def updatePlayerStats(request, id):
         context = {}
     return render(request, "player_stats_list.html", context)
 
+def goHome(request):
+    context={}
+
+    return render(request, "home.html", context)
+
+def createPlayer2(request):
+    form = PlayersForm(request.POST or None)
+    if form.is_valid():
+        print(request.POST)
+        print("inside form")
+        form.save()
+        print('saved')
+        return HttpResponseRedirect('../')
+    else:
+        print('not saved')
+    context = {'form': form}
+
+    return render(request, "add_player_form.html", context)
+
+def goTest(request):
+    form = PlayersForm(request.POST or None)
+    if form.is_valid():
+        print('saved')
+        form.save()
+        return HttpResponseRedirect('showTeams')
+    else:
+        print('not saved')
+    context = {'form': form}
+    return render(request, "checkbox.html", context)
+
+def goToButton(request):
+    context={}
+
+    return render(request, "button.html", context)
+
+# def goToPie(request):
+#     context={}
+#
+#     return render(request, "pie_chart.html", context)
+
+def goToDoughnut(request):
+    context={}
+
+    return render(request, "doughnut_chart.html", context)
+
+
 class TeamChartView(TemplateView):
     template_name = 'charts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs"] = Players.objects.all()
+        return context
+
+# class Point3ChartView(TemplateView):
+#     template_name = 'chart_3_point.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         # context["qs"] = Players.objects.all()
+#         # context["qs"] = Players(number="44")
+#         context["qs"] = Players.objects.all().filter(number__lte=44).filter(weight__gte=220)
+#
+#         return context
+
+class Point3ChartView(TemplateView):
+    template_name = 'chart_3_point.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context["qs"] = TeamStats.objects.all().filter(field_goal_percentage__gte=0.44)
+        # context["qs"] = TeamStats.objects.all().filter(three_point_field_goal_percentage__gte=0.35)
+        # context["qs"] = TeamStats.objects.all()[5:10]
+        context["qs"] = TeamStats.objects.order_by('-three_point_field_goal_percentage')[:3]
+
+        return context
+
+class Point2ChartView(TemplateView):
+    template_name = 'chart_2_point.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = TeamStats.objects.order_by('-two_point_field_goal_percentage')[:3]
+
+        return context
+
+class FreeThrowChartView(TemplateView):
+    template_name = 'chart_free_throw.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = TeamStats.objects.order_by('-free_throw_percentage')[:3]
+
+        return context
+
+class FreeThrowChartView2(TemplateView):
+    template_name = 'pie_chart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = TeamStats.objects.order_by('-free_throw_percentage')[:3]
         return context
