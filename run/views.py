@@ -3,9 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 
-from run.models import Teams, Players, TeamStats, PlayerStats
-from .forms import TeamsForm, PlayersForm, ScoresForm, TeamStatsForm, PlayerStatsForm
+from run.models import Teams, Players, TeamStats, PlayerStats, AverageTeamStats
+from .forms import TeamsForm, PlayersForm, ScoresForm, TeamStatsForm, PlayerStatsForm, AverageTeamStatsForm
 from django.test.client import RequestFactory
+from itertools import chain
 
 def home(request):
     return render(request, 'admin.html')
@@ -15,6 +16,7 @@ def admin(request):
 
 def createTeam(request):
     form = TeamsForm(request.POST or None)
+    print(request.POST)
     if form.is_valid():
         print('saved')
         form.save()
@@ -232,6 +234,58 @@ def createTeamStats(request):
     context = {'form': form}
     return render(request, "team_stats_form.html", context)
 
+def createAvgTeamStats(request):
+    teamStats = TeamStats.objects.all()
+    games = 0
+    assists = 0
+    fieldGoals = 0
+    defensiveRebounds = 0
+    offensiveRebounds = 0
+    steals = 0
+    turnovers = 0
+    blocks = 0
+    points = 0
+
+    for x in teamStats:
+        assists += x.assists
+        fieldGoals += x.field_goals
+        defensiveRebounds += x.defensive_rebounds
+        offensiveRebounds += x.offensive_rebounds
+        turnovers += x.turnovers
+        steals += x.steals
+        blocks += x.blocks
+        points += x.points
+        games += x.games
+
+    averageTeamStats = AverageTeamStats()
+    averageTeamStats.assists = assists
+    averageTeamStats.games = games
+    averageTeamStats.total_rebounds = 0
+    averageTeamStats.steals = steals
+    averageTeamStats.field_goals = fieldGoals
+    averageTeamStats.blocks = blocks
+    averageTeamStats.defensive_rebounds = defensiveRebounds
+    averageTeamStats.offensive_rebounds = offensiveRebounds
+    averageTeamStats.field_goal_attempts = 0
+    averageTeamStats.field_goal_percentage = 0
+    averageTeamStats.free_throw_attempts = 0
+    averageTeamStats.free_throw_percentage = 0
+    averageTeamStats.free_throws = 0
+    averageTeamStats.personal_fouls = 0
+    averageTeamStats.points = points
+    averageTeamStats.three_point_field_goal = 0
+    averageTeamStats.three_point_field_goal_attempts = 0
+    averageTeamStats.three_point_field_goal_percentage = 0
+    averageTeamStats.turnovers = turnovers
+    averageTeamStats.two_point_field_goal = 0
+    averageTeamStats.two_point_field_goal_attempts = 0
+    averageTeamStats.two_point_field_goal_percentage = 0
+
+    averageTeamStats.save()
+
+    context = {'assists': assists/10, 'fieldGoals': fieldGoals/10, 'defensiveRebounds': defensiveRebounds/10, 'offensiveRebounds': offensiveRebounds/10, 'turnovers': turnovers/10,  'steals': steals/10,  'blocks': blocks/10,  'points': points/10 }
+    return render(request,"average_team_stats.html", context)
+
 def createPlayerStats(request):
     form = PlayerStatsForm(request.POST or None)
     if form.is_valid():
@@ -321,7 +375,7 @@ def goToButton(request):
 # def goToPie(request):
 #     context={}
 #
-#     return render(request, "pie_chart.html", context)
+#     return render(request, "chart_free_throw.html", context)
 
 def goToDoughnut(request):
     context={}
@@ -370,7 +424,7 @@ class Point2ChartView(TemplateView):
         return context
 
 class FreeThrowChartView(TemplateView):
-    template_name = 'chart_free_throw.html'
+    template_name = 'chart_free_throw_old.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -379,9 +433,51 @@ class FreeThrowChartView(TemplateView):
         return context
 
 class FreeThrowChartView2(TemplateView):
-    template_name = 'pie_chart.html'
+    template_name = 'chart_free_throw.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs"] = TeamStats.objects.order_by('-free_throw_percentage')[:3]
+        return context
+
+class DefensiveReboundChartView(TemplateView):
+    template_name = 'chart_defensive_reb.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = TeamStats.objects.order_by('-defensive_rebounds')[:3]
+        return context
+
+class OffensiveReboundChartView(TemplateView):
+    template_name = 'chart_offensive_reb.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = TeamStats.objects.order_by('-offensive_rebounds')[:3]
+        return context
+
+class AssistsChartView(TemplateView):
+    template_name = 'chart_assists.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context["qs"] = TeamStats.objects.order_by('-assists')[:3] + TeamStats.objects.order_by('-games')[:3]
+        context["qs"] = list(chain(TeamStats.objects.order_by('-assists')[:3], AverageTeamStats.objects.all()))
+        return context
+
+class TurnoversChartView(TemplateView):
+    template_name = 'chart_turnovers.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = TeamStats.objects.order_by('-turnovers')[:3]
+        return context
+
+
+class StealsChartView(TemplateView):
+    template_name = 'chart_steals.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = TeamStats.objects.order_by('-offensive_rebounds')[:3]
         return context

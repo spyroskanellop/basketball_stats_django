@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Defensive Rebounds chart</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+
+    {% load static %}
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Pattaya", sans-serif;
+        }
+        html{
+            height:100%;
+        }
+        body {
+            background-image: linear-gradient(to right top, #051937, #004d7a 30%, #008793, #00bf72, #a8eb12);
+        }
+        .highcharts-figure, .highcharts-data-table table {
+          min-width: 310px;
+          max-width: 800px;
+          margin-top: 50px;
+          border-style: inset;
+          box-shadow: 10px 10px 15px 10px white;
+        }
+
+        #container {
+          height: 400px;
+        }
+
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #EBEBEB;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        .highcharts-data-table caption {
+          padding: 1em 0;
+          font-size: 1.2em;
+          color: #555;
+        }
+        .highcharts-data-table th {
+          font-weight: 600;
+          padding: 0.5em;
+        }
+        .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+          padding: 0.5em;
+        }
+        .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+          background: #f8f8f8;
+        }
+        .highcharts-data-table tr:hover {
+          background: #f1f7ff;
+        }
+        .highcharts-description{
+            box-shadow: 1px 10px 15px black;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <figure class="highcharts-figure">
+      <div id="container"></div>
+      <p class="highcharts-description">
+        Bar chart showing horizontal columns. This chart type is often
+        beneficial for smaller screens, as the user can scroll through the data
+        vertically, and axis labels are easy to read.
+      </p>
+    </figure>
+    <script>
+        Highcharts.chart('container', {
+          chart: {
+            type: 'bar'
+          },
+          title: {
+            text: 'Top 3 dominating Teams in defensive rebounds'
+          },
+          subtitle: {
+            text: 'Source: <a href="https://www.basketball-reference.com">Basketball-reference</a>'
+          },
+          xAxis: {
+            categories: ['Season 2020-21'],
+            title: {
+              text: null
+            }
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Defensive Rebounds',
+              align: 'high'
+            },
+            labels: {
+              overflow: 'justify'
+            }
+          },
+          tooltip: {
+            valueSuffix: ''
+          },
+          plotOptions: {
+            bar: {
+              dataLabels: {
+                enabled: true
+              }
+            }
+          },
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+            shadow: true
+          },
+          credits: {
+            enabled: false
+          },
+          series: [{
+            name: '{{qs.0.teamID}}',
+            data: [{{qs.0.defensive_rebounds}}]
+          }, {
+            name: '{{qs.1.teamID}}',
+            data: [{{qs.1.defensive_rebounds}}]
+          }, {
+            name: '{{qs.2.teamID}}',
+            data: [{{qs.2.defensive_rebounds}}]
+          }]
+        });
+    </script>
+</body>
+</html>

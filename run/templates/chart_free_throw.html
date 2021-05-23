@@ -2,56 +2,179 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>3 point chart</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+    <title>pie chart</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% load static %}
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            position: relative;
+            min-height: 100vh;
+            background: url({% static 'img/basket_court.jpg' %});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        .b-skills{
+            position: absolute;
+            width: 100%;
+            height: 55%;
+            text-align: center;
+            padding: 45px;
+            border-top: 1px solid #f9f9f9;
+            padding-left: 19%;
+            border-style: groove;
+            background-color: rgba(202, 198, 220, 0.25);
+            box-shadow: 7px 5px 15px white;
+        }
+        .b-skills:last-child {
+            margin-bottom: -30px;
+        }
+        .b-skills h2{
+            position: absolute;
+            height:100%;
+            margin-top: 0px;
+            margin-bottom: 70px;
+            font-weight: 900;
+            text-transform: uppercase;
+            transform: rotate(-90deg);
+            text-align: left;
+            left: 0;
+            top:0;
+            padding-right: 100px;
+            padding-left: 100px;
+            color: #cccccc;
+            text-shadow: 2px 2px 1px white;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 150px;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .skill-item{
+            position: relative;
+            max-width: 250px;
+            width: 100%;
+            margin-bottom: 30px;
+            color: #cccccc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-top: 100%;
+            margin-bottom: 27px;
+        }
+        .skill-item .chart,
+        .skill-item .chart canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .skill-item .chart::before {
+            content: "";
+            width: 0;
+            height: 100%;
+        }
+        .skill-item .chart::before,
+        .skill-item .percent {
+            display: inline-block;
+            vertical-align: middle;
+            text-shadow: 5px 5px 5px #b3b3b3;
+        }
+        .skill-item .percent {
+            position: relative;
+            line-height: 1;
+            font-size: 40px;
+            font-weight: 900;
+            z-index: 2;
+        }
+        .skill-item .percent:after {
+            content: attr(data-after);
+            font-size: 20px;
+        }
+        p {
+            font-weight: 900;
+            color: #cccccc;
+            text-shadow: 5px 5px 5px #b3b3b3;
+        }
+    </style>
 </head>
 <body>
-    {% for team in qs %}
-        {{team.teamID}}
-    {% endfor %}
+    <div class="b-skills">
+        <div class="container">
+            <h2>Free throw percentage</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="skill-item center-block">
+                        <div class="chart-container">
+                            <div class="chart" id="first_bar" data-percent="" data-bar-color="#3333cc">
+                                <span class="percent" id="first_label" data-after="%">{{qs.0.free_throw_percentage}}</span>
+                            </div>
+                        </div>
+                        <p>{{qs.0.teamID}}</p>
+                    </div>
+                </div>
 
-    <script>
-    $(document).ready(function(){
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [{% for team in qs %}'{{team.teamID}}',{% endfor %}],
-                datasets: [{
-                    label: 'free throw goal percentage %',
-                    data: [{% for team in qs %}{{team.free_throw_percentage}} * 100,{% endfor %}],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
+                <div class="col-md-3">
+                    <div class="skill-item center-block">
+                        <div class="chart-container">
+                            <div class="chart" id="second_bar" data-percent="" data-bar-color="purple">
+                                <span class="percent" id="second_label" data-after="%">{{qs.1.free_throw_percentage}}</span>
+                            </div>
+                        </div>
+                        <p>{{qs.1.teamID}}</p>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="skill-item center-block">
+                        <div class="chart-container">
+                            <div class="chart" id="third_bar" data-percent="" data-bar-color="#ff4241">
+                                <span class="percent" id="third_label" data-after="%">{{qs.2.free_throw_percentage}}</span>
+                            </div>
+                        </div>
+                        <p>{{qs.2.teamID}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src='{% static "jquery.easypiechart.min.js" %}'></script>
+    <script src='{% static "plugins/jquery.easypiechart.min.js" %}'></script>
+    <script type="text/javascript">
+        var free_throw_percentage1 = {{qs.0.free_throw_percentage}} *100;
+        var free_throw_percentage2 = {{qs.1.free_throw_percentage}} *100;
+        var free_throw_percentage3 = {{qs.2.free_throw_percentage}} *100;
+
+        $('#first_bar').attr('data-percent', free_throw_percentage1);
+        document.getElementById("first_label").innerHTML = free_throw_percentage1;
+
+        $('#second_bar').attr('data-percent', free_throw_percentage2);
+        document.getElementById("second_label").innerHTML = free_throw_percentage2;
+
+        $('#third_bar').attr('data-percent', free_throw_percentage3);
+        document.getElementById("third_label").innerHTML = free_throw_percentage3;
+
+
+        $(function(){
+            $('.chart').easyPieChart({
+            })
         });
-    });
     </script>
-    <canvas id="myChart" width="400" height="100"></canvas>
 
 </body>
 </html>

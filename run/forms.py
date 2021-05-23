@@ -1,13 +1,8 @@
 from django import forms
-from .models import Teams, Players, Scores, TeamStats, PlayerStats
+from .models import Teams, Players, Scores, TeamStats, PlayerStats, AverageTeamStats
 
-# class TeamsForm(ModelForm):
-#     class Meta:
-#         model = Teams
-#         fields = "__all__"
 class DateInput(forms.DateInput):
     input_type = 'date'
-
 
 class TeamsForm(forms.ModelForm):
 
@@ -126,3 +121,9 @@ class PlayerStatsForm(forms.ModelForm):
             'points': 'points',
             'teamID': 'Team id(number)',
         }
+
+class AverageTeamStatsForm(forms.ModelForm):
+    class Meta:
+        model = AverageTeamStats
+        fields = ['field_goals', 'offensive_rebounds', 'defensive_rebounds',
+                   'assists', 'steals', 'turnovers', 'blocks', 'points']

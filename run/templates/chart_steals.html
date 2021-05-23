@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>2 point chart</title>
+    <title>Steals chart</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
             integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
             crossorigin="anonymous"></script>
@@ -98,7 +98,7 @@
             type: 'column'
           },
           title: {
-            text: 'Top 3 dominating Teams in 2 point field goals percentage %'
+            text: 'Top 3 dominating Teams in Steals'
           },
           subtitle: {
             text: 'Click the columns to view versions. Source: <a href="https://www.basketball-reference.com">Basketball-reference</a>'
@@ -142,17 +142,17 @@
               data: [
                 {
                   name: "{{qs.0.teamID}}",
-                  y: {{qs.0.two_point_field_goal_percentage}} *100,
+                  y: {{qs.0.steals}},
                   drilldown: "{{qs.0.teamID}}"
                 },
                 {
                   name: "{{qs.1.teamID}}",
-                  y: {{qs.1.two_point_field_goal_percentage}} *100,
+                  y: {{qs.1.steals}},
                   drilldown: "{{qs.1.teamID}}"
                 },
                 {
                   name: "{{qs.2.teamID}}",
-                  y: {{qs.2.two_point_field_goal_percentage}} *100,
+                  y: {{qs.2.steals}},
                   drilldown: "{{qs.2.teamID}}"
                 }
               ]
@@ -165,12 +165,8 @@
                 id: "{{qs.0.teamID}}",
                 data: [
                   [
-                    "2 point field goal",
-                    {{qs.0.two_point_field_goal}}
-                  ],
-                  [
-                    "2 point field goal attempts",
-                    {{qs.0.two_point_field_goal_attempts}}
+                    "Steals",
+                    {{qs.0.steals}}
                   ]
                 ]
               },
@@ -179,12 +175,8 @@
                 id: "{{qs.1.teamID}}",
                 data: [
                   [
-                    "2 point field goal",
-                    {{qs.1.two_point_field_goal}}
-                  ],
-                  [
-                    "2 point field goal attempts",
-                    {{qs.1.two_point_field_goal_attempts}}
+                    "steals",
+                    {{qs.1.steals}}
                   ]
                 ]
               },
@@ -193,12 +185,8 @@
                 id: "{{qs.2.teamID}}",
                 data: [
                   [
-                    "2 point field goal",
-                    {{qs.2.two_point_field_goal}}
-                  ],
-                  [
-                    "2 point field goal attempts",
-                    {{qs.2.two_point_field_goal_attempts}}
+                    "Steals",
+                    {{qs.2.steals}}
                   ]
                 ]
               }

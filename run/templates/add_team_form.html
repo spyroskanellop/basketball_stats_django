@@ -144,7 +144,9 @@
                         <input type="text" name="team_name" required="required">
                         <label for="{{ field.id_for_label }}" class="text">Enter team name</label>
                         <!--  Add if statement     -->
-                        <placeholder>{{form.team_name}}</placeholder>
+<!--                        {% if form.team_name != "Team name" %}-->
+<!--                        <placeholder>{{form.team_name}}</placeholder>-->
+                        {% endif %}
                         <label class="line"></label>
                     </div>
                 </div>

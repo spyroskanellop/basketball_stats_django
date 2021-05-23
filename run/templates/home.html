@@ -126,7 +126,6 @@
             border-right: 10px solid #fff;
             box-sizing: border-box;
             transition: 0.1s ease;
-
         }
         .text {
             position: absolute;
@@ -227,16 +226,14 @@
                     <a href="{% url '3_point_chart' %}" class="sub-item">3 point </a>
                     <a href="{% url '2_point_chart' %}" class="sub-item">2 point</a>
                     <a href="{% url 'free_throw_chart' %}" class="sub-item">Free throws</a>
-                    <a href="{% url '2_point_chart' %}" class="sub-item">Assists</a>
-                    <a href="{% url '2_point_chart' %}" class="sub-item">Defensive Rebounds</a>
-                    <a href="{% url '2_point_chart' %}" class="sub-item">Offensive Rebounds</a>
-                    <a href="{% url '2_point_chart' %}" class="sub-item">Steals</a>
-                    <a href="{% url '2_point_chart' %}" class="sub-item">2 point</a>
+                    <a href="{% url 'assists' %}" class="sub-item">Assists</a>
+                    <a href="{% url 'def_reb' %}" class="sub-item">Defensive Rebounds</a>
+                    <a href="{% url 'off_reb' %}" class="sub-item">Offensive Rebounds</a>
+                    <a href="{% url 'steals' %}" class="sub-item">Steals</a>
+                    <a href="{% url 'turnovers' %}" class="sub-item">Turnovers</a>
 
                 </div>
             </div>
-<!--            <div class="item"><a href="#"><i class="fas fa-info-circle"></i>Info <i class="fas fa-angle-right dropdown"></i></a></div>-->
-
         </div>
     </div>
 

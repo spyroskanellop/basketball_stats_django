@@ -24,6 +24,7 @@ urlpatterns = [
     path('player/setScore', views.goToScore, name='court'),
     path('game/setGame', views.chooseGame, name='choose_game'),
 
+    path('team/averageStats', views.createAvgTeamStats, name='average_stats'),
     path('team/addStats', views.createTeamStats, name='team_stats_insert'),
     path('team/updateStats/<int:id>/', views.updateTeamStats, name='team_stats_update'),
     path('player/addStats', views.createPlayerStats, name='player_stats_insert'),
@@ -34,11 +35,15 @@ urlpatterns = [
     path('free_throw', views.FreeThrowChartView.as_view(), name='free_throw_chart'),
     path('free_throw', views.FreeThrowChartView.as_view(), name='free_throw_chart'),
     path('free_throw2', views.FreeThrowChartView2.as_view(), name='free_throw_chart'),
+    path('def_reb', views.DefensiveReboundChartView.as_view(), name='def_reb'),
+    path('off_reb', views.OffensiveReboundChartView.as_view(), name='off_reb'),
+    path('assists', views.AssistsChartView.as_view(), name='assists'),
+    path('steals', views.StealsChartView.as_view(), name='steals'),
+    path('turnovers', views.TurnoversChartView.as_view(), name='turnovers'),
 
     # path('pie', views.goToPie, name='pie'),
     path('doughnut', views.goToDoughnut, name='doughnut'),
 
-    path('', views.goHome, name='home'),
     path('test/form', views.createPlayer2, name='player_insert2'),
     path('button', views.goToButton, name='button'),
 
