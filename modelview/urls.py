@@ -15,7 +15,8 @@ urlpatterns = [
     path('update_team/<int:id>/', views.updateTeam, name='team_update'),
     path('delete_team/<int:id>/', views.deleteTeam, name='team_delete'),
 
-    path('player/addPlayer', views.createPlayer, name='player_insert'),
+    # path('player/addPlayer', views.createPlayer, name='player_insert'),
+    path('test/form', views.createPlayer2, name='player_insert2'),
     path('player/showPlayers', views.viewPlayer, name='player_list'),
     path('updatePlayer/<int:id>/', views.updatePlayer, name='player_update'),
     path('deletePlayer/<int:id>/', views.deletePlayer, name='player_delete'),
@@ -44,7 +45,6 @@ urlpatterns = [
     # path('pie', views.goToPie, name='pie'),
     path('doughnut', views.goToDoughnut, name='doughnut'),
 
-    path('test/form', views.createPlayer2, name='player_insert2'),
     path('button', views.goToButton, name='button'),
 
 ]

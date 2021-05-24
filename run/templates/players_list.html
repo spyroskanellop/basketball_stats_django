@@ -6,24 +6,33 @@
     {% load static %}
 <!--    <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Farro&display=swap" rel="stylesheet">
+
     {% include 'header.html' %}
     <style>
+        html {
+            height: 100%;
+        }
         body {
             /* background-image: linear-gradient(to right bottom, #180711, #2b0c1a, #3f0a1d, #54041c 25%, #680016, #720019 45%, #7b001d, #850020 60%, #860033, #800048, #71005e, #570574); */
              background-image: linear-gradient(to right bottom, #180711, #270d19, #380d1e, #4a0b21, #5c0721, #610523, #660326, #6b0028, #620030, #560038, #47003f, #330144);
         }
+        h1 {
+            margin: 25px 25px;
+        }
         .content-table {
             text-align: center;
             border-collapse: collapse;
-            margin: 25px 0;
+            margin: 25px 25px;
             font-size: 15px;
             min-width: 400px;
             border-radius: 25px 25px 0 0;
             overflow: hidden;
             box-shadow: 15px 5px 30px rgba(0, 0, 0, 255);
-            font-family: 'Garamond', serif;
+            font-family: 'Farro', sans-serif;
             border-width: medium;
             font-weight: bold;
+            width: 90%;
         }
         .content-table thead tr{
              /* background-color: #009879; */
@@ -32,6 +41,7 @@
             color: white;
             text-align: left;
             font-weight: bold;
+            colspan: 1;
         }
         .content-table th,
         .content-table td {
@@ -126,8 +136,8 @@
                 <th>Position</th>
                 <th>Dominant Hand</th>
                 <th>Nationality</th>
-                <th>Team's ID</th>
-                <th><a href="{% url 'player_insert'  %}" class="btn text-secondary px-0"><button>Add player</button>
+                <th>Team's Name</th>
+                <th><a href="{% url 'player_insert2'  %}" class="btn text-secondary px-0"><button>Add player</button>
                     <i class="fas fa-user-plus"></i>
                 </a></th>
             </tr>
@@ -141,7 +151,7 @@
                     <td>{{player.position}}</td>
                     <td>{{player.dominant_hand}}</td>
                     <td>{{player.nationality}}</td>
-                    <td>{{player.teamID_id}}</td>
+                    <td>{{player.teamID}}</td>
 
                     <td><a href="{% url 'player_update' player.id %}" class="btn text-secondary px-0">
                         <button>Edit</button>
@@ -151,10 +161,6 @@
                         <button>Delete</button>
                         <i class="fas fa-trash-alt"></i>
                     </a></td>
-<!--                    <td><a href="{% url 'choose_game' %}" class="btn text-secondary px-0">-->
-<!--                        <button>Set Score</button>-->
-<!--                        <i class="fas fa-edit"></i>-->
-<!--                    </a></td>-->
                     <td><a href="{% url 'player_stats' player.id %}" class="btn text-secondary px-0">
                         <button>Player Stats</button>
                         <i class="fas fa-address-card"></i>

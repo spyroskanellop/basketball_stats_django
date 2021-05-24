@@ -6,17 +6,18 @@
     {% load static %}
 <!--    <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <style>
         body {
             /* background-image: linear-gradient(to right bottom, #180711, #2b0c1a, #3f0a1d, #54041c 25%, #680016, #720019 45%, #7b001d, #850020 60%, #860033, #800048, #71005e, #570574); */
              background-image: linear-gradient(to right bottom, #180711, #270d19, #380d1e, #4a0b21, #5c0721, #610523, #660326, #6b0028, #620030, #560038, #47003f, #330144);
         }
+        h1 {
+            margin: 25px 15px;
+        }
         .content-table {
-            text-align: center;
             border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 15px;
+            margin: 25px 35px;
+            font-size: 17px;
             min-width: 400px;
             border-radius: 25px 25px 0 0;
             overflow: hidden;
@@ -24,6 +25,7 @@
             font-family: 'Garamond', serif;
             border-width: medium;
             font-weight: bold;
+            width: 60%;
         }
         .content-table thead tr{
              /* background-color: #009879; */
@@ -35,7 +37,8 @@
         }
         .content-table th,
         .content-table td {
-            padding: 12px 15px;
+            padding-top: 15px;
+            padding-left: 50px;
         }
         button {
             border: 1px solid #3498db;
@@ -123,19 +126,19 @@
         <thead>
             <tr>
                 <td>Team Name</td>
-                <td><a href="{% url 'team_insert'  %}" class="btn text-secondary px-0"><button>Add team</button>
+                <td colspan="3" style="text-align: right;"><a href="{% url 'team_insert'  %}" class="btn text-secondary px-0"><button>Add team</button>
                 <i class="fas fa-user-plus"></i>
                 </a></td>
-                <td><a href="" class="btn text-secondary px-0"><button>Top 3</button>
-                <i class="far fa-star"></i>
-                </a></td>
+<!--                <td><a href="" class="btn text-secondary px-0"><button>Top 3</button>-->
+<!--                <i class="far fa-star"></i>-->
+<!--                </a></td>-->
             </tr>
         </thead>
         <tbody>
             {% for team in team_list %}
                 <tr>
-                    <td>{{team.team_name}}</td>
-                    <td><a href="{% url 'team_update' team.id %}" class="btn text-secondary px-0">
+                    <td width="100%">{{team.team_name}}</td>
+                    <td align="right" ><a href="{% url 'team_update' team.id %}" class="btn text-secondary px-0">
                         <button>Edit</button>
                         <i class="fas fa-wrench"></i>
                     </a></td>

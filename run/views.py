@@ -62,24 +62,39 @@ def deleteTeam(request, id):
 
     return render(request, "delete_team.html", context)
 
-def createPlayer(request):
-    form = PlayersForm()
-    if request.method == 'POST':
-        form = PlayersForm(request.POST)
-        if form.is_valid:
-            form.save()
-            print('saved')
-            return HttpResponseRedirect('showPlayers')
-        else:
-            print('not saved')
+# def createPlayer(request):
+#     form = PlayersForm()
+#     if request.method == 'POST':
+#         form = PlayersForm(request.POST)
+#         if form.is_valid:
+#             form.save()
+#             print('saved')
+#             return HttpResponseRedirect('showPlayers')
+#         else:
+#             print('not saved')
+#
+#     return render(request, "players_form.html", {'form':form})
 
-    return render(request, "players_form.html", {'form':form})
+def createPlayer2(request):
+    form = PlayersForm(request.POST or None)
+    if form.is_valid():
+        print(request.POST)
+        print("inside form")
+        form.save()
+        print('saved')
+        return HttpResponseRedirect('../')
+    else:
+        print('not saved')
+    context = {'form': form}
+
+    return render(request, "add_player_form.html", context)
 
 
 def viewPlayer(request):
     # context= {'player_list':Players.objects.all()}
 
     player_list = Players.objects.all()
+    team_list = Teams.objects.all()
     page = request.GET.get('page', 1)
 
     paginator = Paginator(player_list, 10)
@@ -90,7 +105,7 @@ def viewPlayer(request):
     except EmptyPage:
         players = paginator.page(paginator.num_pages)
 
-    return render(request, "players_list.html", {'players': players})
+    return render(request, "players_list.html", {'players': players, 'team_list': team_list})
 
 def updatePlayer(request, id):
     player = Players.objects.get(pk=id)
@@ -104,7 +119,7 @@ def updatePlayer(request, id):
         else:
             print("not saved")
     context = {'form':form}
-    return render(request, "players_form.html", context)
+    return render(request, "add_player_form.html", context)
 
 def deletePlayer(request, id):
     player = Players.objects.get(pk=id)
@@ -176,9 +191,6 @@ def updateTeamStats(request, id):
         instance.free_throw_percentage = freeThrowPercentage
         instance.total_rebounds = totalRebounds
 
-        # print(request.POST)
-        # print(form.cleaned_data)
-        # print(teamName)
         print('saved')
         instance.save()
         form.save()
@@ -222,9 +234,6 @@ def createTeamStats(request):
         instance.free_throw_percentage = freeThrowPercentage
         instance.total_rebounds = totalRebounds
 
-        # print(request.POST)
-        # print(form.cleaned_data)
-        # print(teamName)
         print('saved')
         instance.save()
         form.save()
@@ -342,19 +351,6 @@ def goHome(request):
 
     return render(request, "home.html", context)
 
-def createPlayer2(request):
-    form = PlayersForm(request.POST or None)
-    if form.is_valid():
-        print(request.POST)
-        print("inside form")
-        form.save()
-        print('saved')
-        return HttpResponseRedirect('../')
-    else:
-        print('not saved')
-    context = {'form': form}
-
-    return render(request, "add_player_form.html", context)
 
 def goTest(request):
     form = PlayersForm(request.POST or None)
@@ -390,17 +386,6 @@ class TeamChartView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["qs"] = Players.objects.all()
         return context
-
-# class Point3ChartView(TemplateView):
-#     template_name = 'chart_3_point.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         # context["qs"] = Players.objects.all()
-#         # context["qs"] = Players(number="44")
-#         context["qs"] = Players.objects.all().filter(number__lte=44).filter(weight__gte=220)
-#
-#         return context
 
 class Point3ChartView(TemplateView):
     template_name = 'chart_3_point.html'
@@ -461,7 +446,6 @@ class AssistsChartView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context["qs"] = TeamStats.objects.order_by('-assists')[:3] + TeamStats.objects.order_by('-games')[:3]
         context["qs"] = list(chain(TeamStats.objects.order_by('-assists')[:3], AverageTeamStats.objects.all()))
         return context
 

@@ -2,30 +2,111 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Team stats page</title>
+    <title>Player stats page</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Farro&display=swap" rel="stylesheet">
+
+    <style>
+        html{
+            height: 100%;
+        }
+        body {
+            /* background-image: linear-gradient(to right bottom, #180711, #2b0c1a, #3f0a1d, #54041c 25%, #680016, #720019 45%, #7b001d, #850020 60%, #860033, #800048, #71005e, #570574); */
+             background-image: linear-gradient(to right bottom, #180711, #270d19, #380d1e, #4a0b21, #5c0721, #610523, #660326, #6b0028, #620030, #560038, #47003f, #330144);
+        }
+        .content-table {
+            text-align: center;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 15px;
+            min-width: 400px;
+            border-radius: 25px 25px 0 0;
+            overflow: hidden;
+            box-shadow: 15px 5px 30px rgba(0, 0, 0, 255);
+            font-family: 'Farro', sans-serif;
+            border-width: medium;
+            font-weight: bold;
+            margin-bottom: 200px;
+        }
+        .content-table thead tr{
+             /* background-color: #009879; */
+             /* background-image: linear-gradient(to right, #180711, #2b0c1a, #3f0a1d, #54041c, #680016, #5f160a, #552101, #4b2900, #2e2900, #17240a, #091c13, #061110);  */
+            background-image: linear-gradient(to right, #02132e, #002939, #1d3c3e, #404e48, #5e605b);
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+        .content-table th,
+        .content-table td {
+            padding: 12px 25px;
+        }
+        button {
+            border: 1px solid #3498db;
+            background: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-family: "montserrat";
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.8s all ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 255);
+
+        }
+        button::before{
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: #1d3c3e;
+            z-index: -1;
+            transition: 0.8s all ease;
+        }
+        .content-table tbody tr {
+            border-bottom: 1px solid white;
+            color: #f2f2f2;
+        }
+        .content-table tbody tr button{
+            color: #fff;
+        }
+        .content-table tbody tr button:hover{
+            color: #2283c3;
+        }
+        .content-table tbody tr button::before{
+            bottom: 0;
+            border-radius: 50% 50% 0 0;
+            height: 180%;
+        }
+        .content-table tbody tr button:hover::before{
+            height: 0%;
+        }
+        .content-table tbody tr:last-of-type{
+            border-bottom: 2px solid #009879;
+        }
+        .content-table tbody tr .active-row {
+            font-weight: bold;
+            color: #009878;
+        }
+        h1 {
+            margin-top: 30px;
+            font-size: 52px;
+            background: -webkit-linear-gradient(#eee, #333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    {% load static %}
+    {% include 'header.html' %}
 </head>
 <body>
-    Table to display SEASON player stats
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">
-    {% include 'header.html' %}
-
-<table class="content-table">
+    <h1> Seasonal player stats</h1>
+    <table class="content-table">
         <thead>
             <tr>
                 <th>Games</th>
-                <th>Field Goals</th>
-                <th>Field Goal Attempts</th>
-                <th>Field Goal Percentage</th>
-                <th>3 Point Field Goals</th>
-                <th>3 Point Field Goal Attempts</th>
-                <th>3 Point Field Goal Percentage</th>
-                <th>2 Point Field Goals </th>
-                <th>2 Point Field Goal Attempts</th>
-                <th>2 Point Field Goal Percentage</th>
-                <th>Free Throws</th>
-                <th>Free Throw Attempts</th>
-                <th>Free Throw Percentage</th>
                 <th>Offensive Rebounds</th>
                 <th>Defensive Rebounds</th>
                 <th>Total Rebounds</th>
@@ -37,26 +118,10 @@
                 <th>Points</th>
                 <th>Player's ID</th>
             </tr>
-            <a href="{% url 'player_stats_insert' %}" class="btn text-secondary px-0">
-                        <button>Add player Season Stats</button>
-                        <i class="fas fa-edit"></i>
-                    </a>
         </thead>
         <tbody>
                 <tr>
                     <td>{{playerStats.games}}</td>
-                    <td>{{playerStats.field_goals}}</td>
-                    <td>{{playerStats.field_goal_attempts}}</td>
-                    <td>{{playerStats.field_goal_percentage}}</td>
-                    <td>{{playerStats.three_point_field_goal}}</td>
-                    <td>{{playerStats.three_point_field_goal_attempts}}</td>
-                    <td>{{playerStats.three_point_field_goal_percentage}}</td>
-                    <td>{{playerStats.two_point_field_goal}}</td>
-                    <td>{{playerStats.two_point_field_goal_attempts}}</td>
-                    <td>{{playerStats.two_point_field_goal_percentage}}</td>
-                    <td>{{playerStats.free_throws}}</td>
-                    <td>{{playerStats.free_throw_attempts}}</td>
-                    <td>{{playerStats.free_throw_percentage}}</td>
                     <td>{{playerStats.offensive_rebounds}}</td>
                     <td>{{playerStats.defensive_rebounds}}</td>
                     <td>{{playerStats.total_rebounds}}</td>
@@ -67,8 +132,50 @@
                     <td>{{playerStats.personal_fouls}}</td>
                     <td>{{playerStats.points}}</td>
                     <td>{{playerStats.playerID}}</td>
+                    <td>
+                        <a href="{% url 'player_stats_insert' %}" class="btn text-secondary px-0">
+                        <button>Add player Season Stats</button>
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    </td>
                 </tr>
         </tbody>
+    </table>
+
+    <h1> Shooting</h1>
+    <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Field Goals</th>
+                    <th>Field Goal Attempts</th>
+                    <th>Field Goal Percentage</th>
+                    <th>3 Point Field Goals</th>
+                    <th>3 Point Field Goal Attempts</th>
+                    <th>3 Point Field Goal Percentage</th>
+                    <th>2 Point Field Goals </th>
+                    <th>2 Point Field Goal Attempts</th>
+                    <th>2 Point Field Goal Percentage</th>
+                    <th>Free Throws</th>
+                    <th>Free Throw Attempts</th>
+                    <th>Free Throw Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>{{playerStats.field_goals}}</td>
+                    <td>{{playerStats.field_goal_attempts}}</td>
+                    <td>{{playerStats.field_goal_percentage}}</td>
+                    <td>{{playerStats.three_point_field_goals}}</td>
+                    <td>{{playerStats.three_point_field_goal_attempts}}</td>
+                    <td>{{playerStats.three_point_field_goal_percentage}}</td>
+                    <td>{{playerStats.two_point_field_goals}}</td>
+                    <td>{{playerStats.two_point_field_goal_attempts}}</td>
+                    <td>{{playerStats.two_point_field_goal_percentage}}</td>
+                    <td>{{playerStats.free_throws}}</td>
+                    <td>{{playerStats.free_throw_attempts}}</td>
+                    <td>{{playerStats.free_throw_percentage}}</td>
+                    </tr>
+            </tbody>
     </table>
 </body>
 </html>
