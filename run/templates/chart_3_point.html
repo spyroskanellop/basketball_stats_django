@@ -6,13 +6,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
             integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
             crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
     <style>
         *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
+            font-family: "Pattaya", sans-serif;
         }
         html{
             height:100%;
@@ -37,7 +39,7 @@
         .highcharts-figure, .highcharts-data-table table {
           min-width: 310px;
           max-width: 800px;
-          margin-top: 50px;
+          margin-top: 100px;
         }
 
         #container {
@@ -85,7 +87,7 @@
     <figure class="highcharts-figure">
       <div id="container"></div>
       <p class="highcharts-description">
-        Chart showing browser market shares. Clicking on individual columns
+        Chart showing top 3 dominating Teams in 3points. Clicking on individual columns
         brings up more detailed data. This chart makes use of the drilldown
         feature in Highcharts to easily switch between datasets.
       </p>
@@ -165,11 +167,11 @@
                 id: "{{qs.0.teamID}}",
                 data: [
                   [
-                    "2 point field goal",
+                    "3 point field goal",
                     {{qs.0.three_point_field_goal}}
                   ],
                   [
-                    "2 point field goal attempts",
+                    "3 point field goal attempts",
                     {{qs.0.three_point_field_goal_attempts}}
                   ]
                 ]
@@ -179,11 +181,11 @@
                 id: "{{qs.1.teamID}}",
                 data: [
                   [
-                    "2 point field goal",
+                    "3 point field goal",
                     {{qs.1.three_point_field_goal}}
                   ],
                   [
-                    "2 point field goal attempts",
+                    "3 point field goal attempts",
                     {{qs.1.three_point_field_goal_attempts}}
                   ]
                 ]
@@ -193,11 +195,11 @@
                 id: "{{qs.2.teamID}}",
                 data: [
                   [
-                    "2 point field goal",
+                    "3 point field goal",
                     {{qs.2.three_point_field_goal}}
                   ],
                   [
-                    "2 point field goal attempts",
+                    "3 point field goal attempts",
                     {{qs.2.three_point_field_goal_attempts}}
                   ]
                 ]

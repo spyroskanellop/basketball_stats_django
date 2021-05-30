@@ -47,6 +47,7 @@
             display: block;
             padding: 5px 30px;
             line-height: 60px;
+            box-shadow: 5px 5px 15px #000080;
         }
         .side-bar .menu .item a:hover {
             background: #8621F8;
@@ -126,6 +127,7 @@
             border-right: 10px solid #fff;
             box-sizing: border-box;
             transition: 0.1s ease;
+            box-shadow: 5px 5px 15px #9999ff;
         }
         .text {
             position: absolute;
@@ -163,6 +165,7 @@
             padding: 0;
             color: #fff;
             font-size: 18px;
+            text-shadow: 5px 5px 5px #b3b3b3;
         }
         .fas.fa-quote-left,.fas.fa-quote-right {
             width: 40px;
@@ -208,10 +211,10 @@
             <i class="fas fa-times"></i>
         </div>
         <div class="menu">
-            <div class="item"><a class="sub-btn"><i class="fas fa-table"></i>Tables <i class="fas fa-angle-right dropdown"></i></a>
+            <div class="item"><a class="sub-btn"><i class="fas fa-table"></i>Championship Overview <i class="fas fa-angle-right dropdown"></i></a>
                 <div class="sub-menu">
-                    <a href="{% url 'team_list' %}" class="sub-item">View Teams </a>
-                    <a href="{% url 'player_list' %}" class="sub-item">View Players </a>
+                    <a href="{% url 'team_list' %}" class="sub-item"> Teams </a>
+                    <a href="{% url 'player_list' %}" class="sub-item"> Players </a>
                 </div>
             </div>
 
@@ -221,7 +224,7 @@
                     <a href="{% url 'player_insert2' %}" class="sub-item">Add Player </a>
                 </div>
             </div>
-            <div class="item"><a class="sub-btn"><i class="far fa-star"></i>Top3 Teams <i class="fas fa-angle-right dropdown"></i></a>
+            <div class="item"><a class="sub-btn"><i class="far fa-star"></i>Top 3 Teams <i class="fas fa-angle-right dropdown"></i></a>
                 <div class="sub-menu">
                     <a href="{% url '3_point_chart' %}" class="sub-item">3 point </a>
                     <a href="{% url '2_point_chart' %}" class="sub-item">2 point</a>
@@ -232,6 +235,18 @@
                     <a href="{% url 'steals' %}" class="sub-item">Steals</a>
                     <a href="{% url 'turnovers' %}" class="sub-item">Turnovers</a>
 
+                </div>
+            </div>
+            <div class="item"><a class="sub-btn"><i class="far fa-star"></i>Top 5 Players <i class="fas fa-angle-right dropdown"></i></a>
+                <div class="sub-menu">
+                    <a href="{% url '3_point_chart_player' %}" class="sub-item">3 point shooters</a>
+                    <a href="{% url '2_point_chart_player' %}" class="sub-item">2 point shooters</a>
+                    <a href="{% url 'free_throw_chart_player' %}" class="sub-item">Free throw shooters</a>
+                    <a href="{% url 'assists_player' %}" class="sub-item">Assists</a>
+                    <a href="{% url 'def_reb' %}" class="sub-item">Defensive Rebounders</a>
+                    <a href="{% url 'off_reb' %}" class="sub-item">Offensive Rebounders</a>
+                    <a href="{% url 'steals' %}" class="sub-item">Steals</a>
+                    <a href="{% url 'turnovers' %}" class="sub-item">Turnovers</a>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Steals chart</title>
+    <title>2 point chart</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
             integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
             crossorigin="anonymous"></script>
@@ -100,7 +100,7 @@
             type: 'column'
           },
           title: {
-            text: 'Top 3 dominating Teams in Steals'
+            text: 'Top 5 dominating Players in 2 point field goals percentage %'
           },
           subtitle: {
             text: 'Click the columns to view versions. Source: <a href="https://www.basketball-reference.com">Basketball-reference</a>'
@@ -139,23 +139,33 @@
 
           series: [
             {
-              name: "Teams",
+              name: "Players",
               colorByPoint: true,
               data: [
                 {
-                  name: "{{qs.0.teamID}}",
-                  y: {{qs.0.steals}},
-                  drilldown: "{{qs.0.teamID}}"
+                  name: "{{qs.0.playerID}}",
+                  y: {{qs.0.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{qs.0.playerID}}"
                 },
                 {
-                  name: "{{qs.1.teamID}}",
-                  y: {{qs.1.steals}},
-                  drilldown: "{{qs.1.teamID}}"
+                  name: "{{qs.1.playerID}}",
+                  y: {{qs.1.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{qs.1.playerID}}"
                 },
                 {
-                  name: "{{qs.2.teamID}}",
-                  y: {{qs.2.steals}},
-                  drilldown: "{{qs.2.teamID}}"
+                  name: "{{qs.2.playerID}}",
+                  y: {{qs.2.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{qs.2.playerID}}"
+                },
+                {
+                  name: "{{qs.3.playerID}}",
+                  y: {{qs.3.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{qs.3.playerID}}"
+                },
+                {
+                  name: "{{qs.4.playerID}}",
+                  y: {{qs.4.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{qs.4.playerID}}"
                 }
               ]
             }
@@ -163,32 +173,72 @@
           drilldown: {
             series: [
               {
-                name: "{{qs.0.teamID}}",
-                id: "{{qs.0.teamID}}",
+                name: "{{qs.0.playerID}}",
+                id: "{{qs.0.playerID}}",
                 data: [
                   [
-                    "Steals",
-                    {{qs.0.steals}}
+                    "2 point field goals",
+                    {{qs.0.two_point_field_goals}} *100
+                  ],
+                  [
+                    "3 point field goal attempts",
+                    {{qs.0.three_point_field_goal_attempts}} *100
                   ]
                 ]
               },
               {
-                name: "{{qs.1.teamID}}",
-                id: "{{qs.1.teamID}}",
+                name: "{{qs.1.playerID}}",
+                id: "{{qs.1.playerID}}",
                 data: [
                   [
-                    "steals",
-                    {{qs.1.steals}}
+                    "3 point field goals",
+                    {{qs.1.two_point_field_goals}} *100
+                  ],
+                  [
+                    "2 point field goal attempts",
+                    {{qs.1.two_point_field_goal_attempts}} *100
                   ]
                 ]
               },
               {
-                name: "{{qs.2.teamID}}",
-                id: "{{qs.2.teamID}}",
+                name: "{{qs.2.playerID}}",
+                id: "{{qs.2.playerID}}",
                 data: [
                   [
-                    "Steals",
-                    {{qs.2.steals}}
+                    "2 point field goals",
+                    {{qs.2.two_point_field_goals}} *100
+                  ],
+                  [
+                    "2 point field goal attempts",
+                    {{qs.2.two_point_field_goal_attempts}} *100
+                  ]
+                ]
+              },
+              {
+                name: "{{qs.3.playerID}}",
+                id: "{{qs.3.playerID}}",
+                data: [
+                  [
+                    "2 point field goals",
+                    {{qs.3.two_point_field_goals}} *100
+                  ],
+                  [
+                    "2 point field goal attempts",
+                    {{qs.3.two_point_field_goal_attempts}} *100
+                  ]
+                ]
+              },
+              {
+                name: "{{qs.4.playerID}}",
+                id: "{{qs.4.playerID}}",
+                data: [
+                  [
+                    "2 point field goals",
+                    {{qs.4.two_point_field_goals}} *100
+                  ],
+                  [
+                    "2 point field goal attempts",
+                    {{qs.4.two_point_field_goal_attempts}} *100
                   ]
                 ]
               }

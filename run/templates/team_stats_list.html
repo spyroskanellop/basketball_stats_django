@@ -90,21 +90,29 @@
             color: #009878;
         }
         h1 {
-            margin-top: 30px;
+            margin-top: 80px;
             font-size: 52px;
             background: -webkit-linear-gradient(#eee, #333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        h2 {
+            margin-top: 30px;
+            font-size: 52px;
+            background: -webkit-linear-gradient(#ff751a, #333);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
 <body>
-    <h1> Team season stats</h1>
+<!--    <h1> Team season stats</h1>-->
     {% load static %}
 <!--    <link rel="stylesheet" type="text/css" href="{% static 'css/list.css'%}">-->
     {% include 'header.html' %}
 
 <table class="content-table">
+        <h1>{{teamStats.teamID}}</h1>
         <thead>
             <tr>
                 <th>Games</th>
@@ -120,7 +128,7 @@
                 <th>Blocks</th>
                 <th>Personal Fouls</th>
                 <th>Points</th>
-                <th>Team's name</th>
+<!--                <th>Team's name</th>-->
             </tr>
 
         </thead>
@@ -139,7 +147,7 @@
                     <td>{{teamStats.blocks}}</td>
                     <td>{{teamStats.personal_fouls}}</td>
                     <td>{{teamStats.points}}</td>
-                    <td>{{teamStats.teamID}}</td>
+<!--                    <td>{{teamStats.teamID}}</td>-->
                     <td>
                         {% if not teamStats.id %}
                         <a href="{% url 'team_stats_insert' %}" class="btn text-secondary px-0">
@@ -161,8 +169,8 @@
     </table>
 
 
-    <h1> Shooting</h1>
-    <table class="content-table">
+    <h2> Shooting</h2>
+    <table id="2" class="content-table">
         <thead>
             <tr>
                 <th>3 Point Field Goals</th>

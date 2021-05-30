@@ -36,7 +36,6 @@ class PlayersForm(forms.ModelForm):
     height = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Height', 'class': 'inputBox'}))
     weight = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Weight', 'class': 'inputBox'}))
     position = forms.ChoiceField(choices=POSITION)
-    # dominant_hand = forms.ChoiceField(choices=DOMINANT_HAND, widget=forms.Select(attrs={'class':'select-box'}))
     dominant_hand = forms.ChoiceField(choices=DOMINANT_HAND)
 
     nationality = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Nationality', 'class': 'inputBox'}))

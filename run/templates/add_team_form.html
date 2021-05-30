@@ -6,6 +6,7 @@
     {% load static %}
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=KoHo:wght@300&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
         *{
@@ -32,7 +33,7 @@
             margin-bottom: 10px;
             margin-top: 10px;
             font-family: 'KoHo', sans-serif;
-
+            text-shadow: 5px 5px 5px rgba(255, 255, 255, 0.3);
         }
         .container .row100 {
             position: relative;
@@ -141,12 +142,8 @@
             <div class="row100">
                 <div class="col">
                     <div class="inputBox">
-                        <input type="text" name="team_name" required="required">
+                        <input type="text" name="team_name" id='txt' required="required" onmouseover="setValue()" onmouseout="setNonValue()">
                         <label for="{{ field.id_for_label }}" class="text">Enter team name</label>
-                        <!--  Add if statement     -->
-<!--                        {% if form.team_name != "Team name" %}-->
-<!--                        <placeholder>{{form.team_name}}</placeholder>-->
-                        {% endif %}
                         <label class="line"></label>
                     </div>
                 </div>
@@ -159,5 +156,16 @@
         </div>
         </form>
     </div>
+
+    <script type="text/javascript">
+        function setValue() {
+            var box = document.getElementById('txt');
+                box.value = '{{form.team_name.value}}';
+
+        }
+        function setNonValue() {
+            document.getElementById('txt').value = '';
+        }
+    </script>
 </body>
 </html>

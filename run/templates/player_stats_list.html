@@ -133,10 +133,18 @@
                     <td>{{playerStats.points}}</td>
                     <td>{{playerStats.playerID}}</td>
                     <td>
+                        {% if not playerStats.offensive_rebounds %}
                         <a href="{% url 'player_stats_insert' %}" class="btn text-secondary px-0">
                         <button>Add player Season Stats</button>
                         <i class="fas fa-edit"></i>
-                    </a>
+                        </a>
+                        {% endif %}
+                        {% if playerStats.offensive_rebounds %}
+                        <a href="{% url 'player_stats_insert' %}" class="btn text-secondary px-0">
+                        <button>Edit player Season Stats</button>
+                        <i class="fas fa-edit"></i>
+                        </a>
+                        {% endif %}
                     </td>
                 </tr>
         </tbody>

@@ -44,8 +44,9 @@ class Players(models.Model):
     experience = models.IntegerField(validators=[MaxValueValidator(30)], default=0)
     teamID = models.ForeignKey(Teams, null=True, on_delete=models.CASCADE)
 
+    # return the value when object is called
     def __str__(self):
-        return self.firstname
+        return self.firstname +" " +self.lastname
 
 class Scores(models.Model):
     xCoor = models.FloatField()
@@ -99,15 +100,15 @@ class PlayerStats(models.Model):
     free_throw_attempts = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     free_throw_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
 
-    offensive_rebounds = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
-    defensive_rebounds = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
-    total_rebounds = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
-    assists = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
-    steals = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
-    turnovers = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
-    blocks = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
-    personal_fouls = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
-    points = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+    offensive_rebounds = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    defensive_rebounds = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    total_rebounds = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    assists = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    steals = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    turnovers = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    blocks = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    personal_fouls = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    points = models.DecimalField(max_digits=5, decimal_places=2, null=True)
 
     playerID = models.ForeignKey(Players, null=True, on_delete=models.CASCADE)
 
@@ -135,10 +136,27 @@ class AverageTeamStats(models.Model):
     personal_fouls = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
     points = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
 
-# class PlayerStats(models.Model):
-#
-#     games = models.IntegerField(validators=[MaxValueValidator(110)], default=0)
-#     points = models.FloatField()
-#     total_rebounds = models.FloatField()
-#     assists = models.FloatField()
+class AveragePlayerStats(models.Model):
+    games = models.IntegerField(validators=[MaxValueValidator(110)], default=0)
+    field_goals = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    field_goal_attempts = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    three_point_field_goal = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    three_point_field_goal_attempts = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    three_point_field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    two_point_field_goal = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    two_point_field_goal_attempts = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    two_point_field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    free_throws = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    free_throw_attempts = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    free_throw_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    offensive_rebounds = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    defensive_rebounds = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    total_rebounds = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    assists = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    steals = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    turnovers = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    blocks = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    personal_fouls = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    points = models.DecimalField(max_digits=5, decimal_places=2, null=True)
 
