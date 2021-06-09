@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Team stats page</title>
     <link href="https://fonts.googleapis.com/css2?family=Farro&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
         html{
@@ -97,11 +98,29 @@
             -webkit-text-fill-color: transparent;
         }
         h2 {
+            width: 25%;
             margin-top: 30px;
             font-size: 52px;
             background: -webkit-linear-gradient(#ff751a, #333);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            box-shadow: 5px 5px 15px #5c5c8a;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+        #second-table {
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .content-table.appear {
+            animation: fadeIn 2s;
         }
     </style>
 </head>
@@ -147,7 +166,6 @@
                     <td>{{teamStats.blocks}}</td>
                     <td>{{teamStats.personal_fouls}}</td>
                     <td>{{teamStats.points}}</td>
-<!--                    <td>{{teamStats.teamID}}</td>-->
                     <td>
                         {% if not teamStats.id %}
                         <a href="{% url 'team_stats_insert' %}" class="btn text-secondary px-0">
@@ -169,8 +187,10 @@
     </table>
 
 
-    <h2> Shooting</h2>
-    <table id="2" class="content-table">
+    <h2 id="h2">
+        <a class="advanced-stats">Advanced Shooting</a>
+    </h2>
+    <table id="second-table" class="content-table">
         <thead>
             <tr>
                 <th>3 Point Field Goals</th>
@@ -198,5 +218,18 @@
             </tr>
         </tbody>
     </table>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('h2').click(function() {
+                var element = document.getElementById('second-table');
+                element.classList.add('appear');
+                element.setAttribute("style", "opacity: 1;");
+
+                document.getElementById('h2').style.boxShadow = "none";
+                document.getElementById('h2').style.cursor = "alias";
+            });
+        });
+    </script>
 </body>
 </html>

@@ -328,21 +328,22 @@ def goTest(request):
         print('not saved')
     context = {'form': form}
     return render(request, "checkbox.html", context)
-
-def goToButton(request):
-    context={}
-
-    return render(request, "button.html", context)
-
-# def goToPie(request):
+#
+# def goToButton(request):
 #     context={}
 #
-#     return render(request, "chart_free_throw.html", context)
-
-def goToDoughnut(request):
-    context={}
-
-    return render(request, "doughnut_chart.html", context)
+#     return render(request, "button.html", context)
+#
+# def goDrag(request):
+#     context = {}
+#
+#     return render(request, "drag.html", context)
+#
+#
+# def goToDoughnut(request):
+#     context={}
+#
+#     return render(request, "doughnut_chart.html", context)
 
 
 class TeamChartView(TemplateView):

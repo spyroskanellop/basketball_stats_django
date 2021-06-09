@@ -48,8 +48,9 @@ urlpatterns = [
     path('assistsplayer', views.AssistsChartPlayerView.as_view(), name='assists_player'),
 
     # path('pie', views.goToPie, name='pie'),
-    path('doughnut', views.goToDoughnut, name='doughnut'),
+    # path('doughnut', views.goToDoughnut, name='doughnut'),
+    # path('drag', views.goDrag, name='dragMe'),
 
-    path('button', views.goToButton, name='button'),
+    # path('button', views.goToButton, name='button'),
 
 ]

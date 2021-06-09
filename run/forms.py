@@ -95,31 +95,38 @@ class TeamStatsForm(forms.ModelForm):
 
 
 class PlayerStatsForm(forms.ModelForm):
+
+    games = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Games played', 'class': 'inputBox'}))
+
+    field_goals = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Field goals', 'class': 'inputBox', 'step': 0.25}))
+    field_goal_attempts = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Field goal attempts', 'class': 'inputBox', 'step': 0.25}))
+
+    three_point_field_goals = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': '3 Point Field goals', 'class': 'inputBox', 'step': 0.25}))
+    three_point_field_goal_attempts = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': '3 Point Field goal attempts', 'class': 'inputBox', 'step': 0.25}))
+
+    two_point_field_goals = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': '2 Point Field goals', 'class': 'inputBox', 'step': 0.25}))
+    two_point_field_goal_attempts = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': '2 Point Field goal attempts', 'class': 'inputBox', 'step': 0.25}))
+
+    free_throws = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Free throws made', 'class': 'inputBox', 'step': 0.25}))
+    free_throw_attempts = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Free throw attempts', 'class': 'inputBox', 'step': 0.25}))
+
+    defensive_rebounds = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Defensive Rebounds', 'class': 'inputBox', 'step': 0.25}))
+    offensive_rebounds = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Offensive Rebounds', 'class': 'inputBox', 'step': 0.25}))
+
+    assists = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Assists', 'class': 'inputBox', 'step': 0.25}))
+    steals = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Steals', 'class': 'inputBox', 'step': 0.25}))
+    turnovers = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Turnovers', 'class': 'inputBox', 'step': 0.25}))
+    blocks = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Blocks', 'class': 'inputBox', 'step': 0.25}))
+    personal_fouls = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Personal fouls', 'class': 'inputBox', 'step': 0.25}))
+    points = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Points', 'class': 'inputBox', 'step': 0.25}))
+    minutes_played = forms.DecimalField(widget=forms.NumberInput(attrs={'placeholder': 'Minutes played', 'class': 'inputBox', 'step': 0.25}))
+
+    playerID = forms.ModelChoiceField(queryset=Players.objects.all(), widget=forms.Select(attrs={'class':'inputBox'}))
+
     class Meta:
         model = PlayerStats
         exclude = ['field_goal_percentage', 'three_point_field_goal_percentage', 'two_point_field_goal_percentage',
                    'free_throw_percentage', 'total_rebounds']
-        fields = "__all__"
-        labels = {
-            'games': 'Games played',
-            'fields_goals': 'field goals',
-            'field_goal_attempts': 'field goal attempts',
-            'three_point_field_goal': '3 point field goal',
-            'three_point_field_goal_attempts': '3 point field goal attempts',
-            'two_point_field_goal': '2 point field goal',
-            'two_point_field_goal_attempts': '2 point field goal attempts',
-            'free_throws': 'free throws',
-            'free_throw_attempts': 'free throw attempts',
-            'offensive_rebounds': 'offensive rebounds',
-            'defensive_rebounds': 'defensive rebounds',
-            'assists': 'assists',
-            'steals': 'steals',
-            'blocks': 'blocks',
-            'turnovers': 'turnovers',
-            'personal_fouls': 'personal_fouls',
-            'points': 'points',
-            'teamID': 'Team id(number)',
-        }
 
 class AverageTeamStatsForm(forms.ModelForm):
     class Meta:

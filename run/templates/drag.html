@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag 'n' drop</title>
+        {% load static %}
+      <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+    <style>
+        body {
+            background: lightblue;
+            max-height: 500px;
+            overflow: hidden; /* Hide scrollbars */
+        }
+        .img2 {
+            position: absolute;
+            right: 0;
+        }
+        #mydiv {
+          position: absolute;
+          z-index: 9;
+        }
+        #mydivheader {
+          padding: 10px;
+          cursor: move;
+          z-index: 10;
+          color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <input type="image" src="{% static 'img/hoop-right.png' %}" class="img2" id="img2"/>
+
+    <div id="mydiv">
+      <div id="mydivheader"><img src="{% static 'img/ball.png' %}" height="110px" width="110px;" class="img" id='img' draggable="true" /></div>
+    </div>
+
+    <script type="text/javascript">
+        dragElement(document.getElementById("mydiv"));
+
+        function dragElement(elmnt) {
+          var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+          if (document.getElementById(elmnt.id + "header")) {
+            // if present, the header is where you move the DIV from:
+            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+          } else {
+            // otherwise, move the DIV from anywhere inside the DIV:
+            elmnt.onmousedown = dragMouseDown;
+          }
+
+          function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+          }
+
+          function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            /* console.log(elmnt.style.top +" "+elmnt.style.left ); */
+            console.log('Sb is dragging me?');
+          }
+
+          function closeDragElement() {
+            // stop moving when mouse button is released:
+            document.onmouseup = null;
+            document.onmousemove = null;
+
+            var element = document.getElementById("mydiv");
+            var hoop = document.getElementById("img2");
+
+
+            var bodyHeight = $(document).height();
+            var bodyWidth = $(document).width();
+
+            var rect = element.getBoundingClientRect();     // original ball position
+            var height = bodyHeight -rect.top -100;
+
+            down();
+
+            var basket = false;
+
+            function down(){
+                var p = $( "#mydiv" );
+                var position = p.position();
+                if(position.top < 210 && (position.left>=1340 && position.left<=1420) ){
+                    alert('its goin in');
+                    basket = true;
+                }
+                $('.img').animate({
+                    marginTop: "+=" +height +"px"
+                },1000);
+                $('.img').animate({
+                    marginTop: "-=" +height/2 +"px"
+                },1000);
+                $('.img').animate({
+                    marginTop: "+=" +height/2 +"px"
+                },1000);
+
+                if(basket=== true){
+                    setTimeout(() => {
+                        $('.img').hide('slow');
+                    }, 4000);
+                } else {
+                    setTimeout(() => {
+                    document.getElementById("img").style.marginTop = "5%";
+                    alert('Shoot it champ');
+                    }, 4000);
+                }
+            }
+          }
+        }
+    </script>
+</body>
+</html>
