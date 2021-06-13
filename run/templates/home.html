@@ -28,7 +28,7 @@
             position: fixed;
             top: 0;
             left: -100%;
-            overflow-y: auto;
+            overflow: overlay;
             transition: 0.5s ease;
             transition-property: left;
         }
@@ -234,7 +234,7 @@
                     <a href="{% url 'off_reb' %}" class="sub-item">Offensive Rebounds</a>
                     <a href="{% url 'steals' %}" class="sub-item">Steals</a>
                     <a href="{% url 'turnovers' %}" class="sub-item">Turnovers</a>
-
+                    <a href="{% url 'points' %}" class="sub-item">Points</a>
                 </div>
             </div>
             <div class="item"><a class="sub-btn"><i class="far fa-star"></i>Top 5 Players <i class="fas fa-angle-right dropdown"></i></a>
@@ -243,10 +243,11 @@
                     <a href="{% url '2_point_chart_player' %}" class="sub-item">2 point shooters</a>
                     <a href="{% url 'free_throw_chart_player' %}" class="sub-item">Free throw shooters</a>
                     <a href="{% url 'assists_player' %}" class="sub-item">Assists</a>
-                    <a href="{% url 'def_reb' %}" class="sub-item">Defensive Rebounders</a>
-                    <a href="{% url 'off_reb' %}" class="sub-item">Offensive Rebounders</a>
-                    <a href="{% url 'steals' %}" class="sub-item">Steals</a>
-                    <a href="{% url 'turnovers' %}" class="sub-item">Turnovers</a>
+                    <a href="{% url 'def_reb_player' %}" class="sub-item">Defensive Rebounders</a>
+                    <a href="{% url 'off_reb_player' %}" class="sub-item">Offensive Rebounders</a>
+                    <a href="{% url 'steals_player' %}" class="sub-item">Steals</a>
+                    <a href="{% url 'turnovers_player' %}" class="sub-item">Turnovers</a>
+                    <a href="{% url 'points_player' %}" class="sub-item">Points</a>
                 </div>
             </div>
         </div>

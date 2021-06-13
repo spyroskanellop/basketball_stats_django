@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>3 point chart</title>
+    <title>Turnovers chart</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
             integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
             crossorigin="anonymous"></script>
@@ -20,7 +20,7 @@
             height:100%;
         }
         body {
-            background-image: linear-gradient(to right top, #6134c9, #4c36b8, #3a36a6, #2b3493, #1f3180, #0b3377, #00336c, #003360, #003656, #003540, #003127, #082c11);
+            background-image: linear-gradient(to right top, #051937, #004d7a 30%, #008793, #00bf72, #a8eb12);
         }
         .highcharts-description{
             box-shadow: 1px 10px 15px black;
@@ -92,6 +92,7 @@
         feature in Highcharts to easily switch between datasets.
       </p>
     </figure>
+
     <script type="text/javascript">
         // Create the chart
         Highcharts.chart('container', {
@@ -99,7 +100,7 @@
             type: 'column'
           },
           title: {
-            text: 'Top 5 dominating Players in 3 point field goals percentage %'
+            text: 'Top 5 dominating Players in turnovers'
           },
           subtitle: {
             text: 'Click the columns to view versions. Source: <a href="https://www.basketball-reference.com">Basketball-reference</a>'
@@ -114,7 +115,7 @@
           },
           yAxis: {
             title: {
-              text: 'Top 5 3 point shooters'
+              text: 'Season 2020-21'
             }
 
           },
@@ -133,7 +134,7 @@
 
           tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.1f}</b> of total<br/>'
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
           },
 
           series: [
@@ -143,27 +144,27 @@
               data: [
                 {
                   name: "{{player0.firstname}} {{player0.lastname}}",
-                  y: {{playerstats.0.three_point_field_goal_percentage}} * 100,
+                  y: {{playerstats.0.turnovers}},
                   drilldown: "{{playerstats.0.playerID}}"
                 },
                 {
                   name: "{{player1.firstname}} {{player1.lastname}}",
-                  y: {{playerstats.1.three_point_field_goal_percentage}} *100,
+                  y: {{playerstats.1.turnovers}},
                   drilldown: "{{playerstats.1.playerID}}"
                 },
                 {
                   name: "{{player2.firstname}} {{player2.lastname}}",
-                  y: {{playerstats.2.three_point_field_goal_percentage}} *100,
+                  y: {{playerstats.2.turnovers}},
                   drilldown: "{{playerstats.2.playerID}}"
                 },
                 {
                   name: "{{player3.firstname}} {{player3.lastname}}",
-                  y: {{playerstats.3.three_point_field_goal_percentage}} *100,
+                  y: {{playerstats.3.turnovers}},
                   drilldown: "{{playerstats.3.playerID}}"
                 },
                 {
                   name: "{{player4.firstname}} {{player4.lastname}}",
-                  y: {{playerstats.4.three_point_field_goal_percentage}} *100,
+                  y: {{playerstats.4.turnovers}},
                   drilldown: "{{playerstats.4.playerID}}"
                 }
               ]
@@ -176,12 +177,8 @@
                 id: "{{playerstats.0.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.0.three_point_field_goals}} *100
-                  ],
-                  [
-                    "3 point field goal attempts",
-                    {{playerstats.0.three_point_field_goal_attempts}} *100
+                    "Turnovers",
+                    {{player.0.turnovers}}
                   ]
                 ]
               },
@@ -190,12 +187,8 @@
                 id: "{{playerstats.1.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.1.three_point_field_goals}} *100
-                  ],
-                  [
-                    "3 point field goal attempts",
-                    {{playerstats.1.three_point_field_goal_attempts}} *100
+                    "Turnovers",
+                    {{playerstats.1.turnovers}}
                   ]
                 ]
               },
@@ -204,12 +197,8 @@
                 id: "{{playerstats.2.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.2.three_point_field_goals}} *100
-                  ],
-                  [
-                    "3 point field goal attempts",
-                    {{playerstats.2.three_point_field_goal_attempts}} *100
+                    "Turnovers",
+                    {{playerstats.2.turnovers}}
                   ]
                 ]
               },
@@ -218,12 +207,8 @@
                 id: "{{playerstats.3.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.3.three_point_field_goals}} *100
-                  ],
-                  [
-                    "3 point field goal attempts",
-                    {{playerstats.3.three_point_field_goal_attempts}} *100
+                    "Turnovers",
+                    {{playerstats.3.turnovers}}
                   ]
                 ]
               },
@@ -232,12 +217,8 @@
                 id: "{{playerstats.4.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.4.three_point_field_goals}} *100
-                  ],
-                  [
-                    "three point field goal attempts",
-                    {{playerstats.4.three_point_field_goal_attempts}} *100
+                    "Turnovers",
+                    {{playerstats.4.turnovers}}
                   ]
                 ]
               }

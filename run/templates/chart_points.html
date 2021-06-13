@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top 3 Scoring</title>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    {% load static %}
+    <style>
+        html{
+          height: 100%;
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+        }
+        body {
+            position: relative;
+            min-height: 100vh;
+            background: url({% static 'img/luka.jpg' %});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        #myChart {
+          height: 100%;
+          width: 100%;
+          min-height: 150px;
+          opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+  <div id="myChart"></div>
+
+  <script type="text/javascript">
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/"; // set modules dir
+    zingchart.loadModules('dragging'); // load dragging module
+
+    var myConfig = { // chart configuration
+      type: 'vbullet',
+      title: {
+        text: 'Top 3 Teams Dominating in points'
+      },
+      subtitle: {
+        text: 'Bars are draggable'
+      },
+      scaleX: {
+        labels: ['{{teamstats.0.teamID}}', '{{teamstats.1.teamID}}', '{{teamstats.2.teamID}}']
+      },
+      tooltip: { // tooltip changes based on value
+        fontSize: 14,
+        borderRadius: 3,
+        borderWidth: 0,
+        shadow: true
+      },
+      plot: {
+        valueBox: [{
+          type: 'all',
+          color: '#000',
+          placement: 'goal',
+          text: '[%node-value / %node-goal-value]'
+        }]
+      },
+      series: [{
+        dataDragging: true, // need this to enable drag
+        values: [{{teamstats.0.points}}, {{teamstats.1.points}}, {{teamstats.2.points}}],
+        goals: [{{teamstatsAverage.0.points}}, {{teamstatsAverage.0.points}},{{teamstatsAverage.0.points}}],
+        goal: {
+          backgroundColor: '#64b5f6',
+          borderWidth: 0,
+        },
+        rules: [ // rules for color
+          {
+            rule: '%v >= %g', // if greater than goal
+            backgroundColor: '#81c784'
+          },
+          {
+            rule: '%v < %g/2', // if less than half goal
+            backgroundColor: '#ef5350'
+          },
+          {
+            rule: '%v >= %g/2 && %v < %g', // if in between
+            backgroundColor: '#ffca28'
+          }
+        ]
+      }]
+    };
+
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+      height: 500,
+      width: '100%',
+      modules: "dragging" // need this to enable drag
+    });
+  </script>
+</body>
+</html>

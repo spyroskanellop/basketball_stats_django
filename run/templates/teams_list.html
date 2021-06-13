@@ -36,6 +36,9 @@
             text-align: left;
             font-weight: bold;
         }
+        tr {
+            width: 100%;
+        }
         .content-table th,
         .content-table td {
             padding: 12px 15px;
@@ -128,9 +131,12 @@
         <thead>
             <tr>
                 <td>Team Name</td>
-                <td colspan="3" style="text-align: right;"><a href="{% url 'team_insert'  %}" class="btn text-secondary px-0"><button>Add team</button>
-                <i class="fas fa-user-plus"></i>
-                </a></td>
+                <td style="text-align: right;"><a href="{% url 'team_insert'  %}" class="btn text-secondary px-0"><button>Add team</button>
+                <i class="fas fa-user-plus"></i></a>
+                </td>
+                <td colspan="3"><a href="{% url 'average_team_stats'  %}" class="btn text-secondary px-0"><button>Update Average Team Stats</button>
+                    <i class="fas fa-user-plus"></i></a>
+                </td>
             </tr>
         </thead>
         <tbody>

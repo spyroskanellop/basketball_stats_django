@@ -104,7 +104,7 @@
         typically take up less space than gauge charts.
       </p>
     </figure>
-
+{{averageplayerstats.assists}}
     <script type="text/javascript">
         Highcharts.setOptions({
           chart: {
@@ -147,7 +147,7 @@
             text: 'Top 5 Players Dominating in Assists'
           },
           xAxis: {
-            categories: ['<span class="hc-cat-title">{{qs.0.playerID}}</span><br/>']
+            categories: ['<span class="hc-cat-title">{{player0.firstname}} {{player0.lastname}}</span><br/>']
           },
           yAxis: {
             plotBands: [{
@@ -167,8 +167,8 @@
           },
           series: [{
             data: [{
-              y: {{qs.0.assists}},
-              target: {{qs.3.assists}}/10
+              y: {{playerstats.0.assists}},
+              target: {{averageplayerstats.0.assists}}
             }]
           }],
           tooltip: {
@@ -178,7 +178,7 @@
 
         Highcharts.chart('container2', {
           xAxis: {
-            categories: ['<span class="hc-cat-title">{{qs.1.playerID}}</span><br/>']
+            categories: ['<span class="hc-cat-title">{{player1.firstname}} {{player1.lastname}}</span><br/>']
           },
           yAxis: {
             plotBands: [{
@@ -201,8 +201,8 @@
           },
           series: [{
             data: [{
-              y: {{qs.1.assists}},
-              target: {{qs.3.assists}}/10
+              y: {{playerstats.1.assists}},
+              target: {{averageplayerstats.0.assists}}
             }]
           }],
           tooltip: {
@@ -213,7 +213,7 @@
 
         Highcharts.chart('container3', {
           xAxis: {
-            categories: ['<span class="hc-cat-title">{{qs.2.playerID}}</span><br/>']
+            categories: ['<span class="hc-cat-title">{{player2.firstname}} {{player2.lastname}}</span><br/>']
           },
           yAxis: {
             plotBands: [{
@@ -228,8 +228,8 @@
           },
           series: [{
             data: [{
-              y: {{qs.2.assists}},
-              target: {{qs.3.assists}}/10
+              y: {{playerstats.2.assists}},
+              target: {{averageplayerstats.0.assists}}
             }]
           }],
           tooltip: {
@@ -242,7 +242,7 @@
 
         Highcharts.chart('container4', {
           xAxis: {
-            categories: ['<span class="hc-cat-title">{{qs.3.playerID}}</span><br/>']
+            categories: ['<span class="hc-cat-title">{{player3.firstname}} {{player3.lastname}}</span><br/>']
           },
           yAxis: {
             plotBands: [{
@@ -265,8 +265,8 @@
           },
           series: [{
             data: [{
-              y: {{qs.3.assists}},
-              target: {{qs.3.assists}}/10
+              y: {{playerstats.3.assists}},
+              target: {{averageplayerstats.0.assists}}
             }]
           }],
           tooltip: {
@@ -279,7 +279,7 @@
 
     Highcharts.chart('container5', {
           xAxis: {
-            categories: ['<span class="hc-cat-title">{{qs.3.playerID}}</span><br/>']
+            categories: ['<span class="hc-cat-title">{{player4.firstname}} {{player4.lastname}}</span><br/>']
           },
           yAxis: {
             plotBands: [{
@@ -302,8 +302,8 @@
           },
           series: [{
             data: [{
-              y: {{qs.4.assists}},
-              target: {{qs.3.assists}}/10
+              y: {{playerstats.4.assists}},
+              target: {{averageplayerstats.0.assists}}
             }]
           }],
           tooltip: {

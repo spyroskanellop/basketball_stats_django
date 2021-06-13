@@ -123,6 +123,28 @@
         .content-table.appear {
             animation: fadeIn 2s;
         }
+
+        select {
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 255);
+            font-size: 16px;
+            padding: 8px 10px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+            margin-top: 30px;
+            outline: none;
+            color: #A9A9A9;
+            padding-left: 35px;
+            border-radius: 6px;
+        }
+        .select option {
+            background: #d1d1e0;
+            color: #5c5c8a;
+        }
+        .select-box{
+            position: relative;
+        }
     </style>
     {% load static %}
     {% include 'header.html' %}
@@ -142,7 +164,7 @@
                 <th>Blocks</th>
                 <th>Personal Fouls</th>
                 <th>Points</th>
-                <th>Player's ID</th>
+                <th>Player's Name</th>
             </tr>
         </thead>
         <tbody>
@@ -157,7 +179,7 @@
                     <td>{{playerStats.blocks}}</td>
                     <td>{{playerStats.personal_fouls}}</td>
                     <td>{{playerStats.points}}</td>
-                    <td>{{playerStats.playerID}}</td>
+                    <td>{{players.firstname}} {{players.lastname}}</td>
                     <td>
                         {% if not playerStats.offensive_rebounds %}
                         <a href="{% url 'player_stats_insert' %}" class="btn text-secondary px-0">
@@ -166,7 +188,7 @@
                         </a>
                         {% endif %}
                         {% if playerStats.offensive_rebounds %}
-                        <a href="{% url 'player_stats_insert' %}" class="btn text-secondary px-0">
+                        <a href="{% url 'player_stats_update' playerStats.playerID %}" class="btn text-secondary px-0">
                         <button>Edit player Season Stats</button>
                         <i class="fas fa-edit"></i>
                         </a>

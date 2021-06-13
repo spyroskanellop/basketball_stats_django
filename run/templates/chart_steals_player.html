@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>3 point chart</title>
+    <title>Steals chart</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
             integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
             crossorigin="anonymous"></script>
@@ -20,7 +20,7 @@
             height:100%;
         }
         body {
-            background-image: linear-gradient(to right top, #6134c9, #4c36b8, #3a36a6, #2b3493, #1f3180, #0b3377, #00336c, #003360, #003656, #003540, #003127, #082c11);
+            background-image: linear-gradient(to right top, #9f2943, #902653, #7b2a60, #622f67, #463268, #353b6f, #204272, #004872, #00587b, #00677f, #00757f, #0b837b);
         }
         .highcharts-description{
             box-shadow: 1px 10px 15px black;
@@ -31,7 +31,7 @@
         .highcharts-figure, .highcharts-data-table table {
           min-width: 310px;
           max-width: 800px;
-          margin: 1em auto;
+          margin: 2em auto;
           border-style: inset;
           box-shadow: 10px 10px 15px 10px white;
         }
@@ -62,7 +62,7 @@
         }
         .highcharts-data-table th {
             font-weight: 600;
-            padding: 0.5em;
+          padding: 0.5em;
         }
         .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
           padding: 0.5em;
@@ -92,6 +92,7 @@
         feature in Highcharts to easily switch between datasets.
       </p>
     </figure>
+
     <script type="text/javascript">
         // Create the chart
         Highcharts.chart('container', {
@@ -99,7 +100,7 @@
             type: 'column'
           },
           title: {
-            text: 'Top 5 dominating Players in 3 point field goals percentage %'
+            text: 'Top 5 dominating Players in Steals'
           },
           subtitle: {
             text: 'Click the columns to view versions. Source: <a href="https://www.basketball-reference.com">Basketball-reference</a>'
@@ -114,7 +115,7 @@
           },
           yAxis: {
             title: {
-              text: 'Top 5 3 point shooters'
+              text: 'Season 2020-21'
             }
 
           },
@@ -133,38 +134,38 @@
 
           tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.1f}</b> of total<br/>'
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
           },
 
           series: [
             {
-              name: "Players",
+              name: "Teams",
               colorByPoint: true,
               data: [
                 {
                   name: "{{player0.firstname}} {{player0.lastname}}",
-                  y: {{playerstats.0.three_point_field_goal_percentage}} * 100,
+                  y: {{playerstats.0.steals}},
                   drilldown: "{{playerstats.0.playerID}}"
                 },
                 {
                   name: "{{player1.firstname}} {{player1.lastname}}",
-                  y: {{playerstats.1.three_point_field_goal_percentage}} *100,
+                  y: {{playerstats.1.steals}},
                   drilldown: "{{playerstats.1.playerID}}"
                 },
                 {
                   name: "{{player2.firstname}} {{player2.lastname}}",
-                  y: {{playerstats.2.three_point_field_goal_percentage}} *100,
+                  y: {{playerstats.2.steals}},
                   drilldown: "{{playerstats.2.playerID}}"
                 },
                 {
                   name: "{{player3.firstname}} {{player3.lastname}}",
-                  y: {{playerstats.3.three_point_field_goal_percentage}} *100,
-                  drilldown: "{{playerstats.3.playerID}}"
+                  y: {{playerstats.2.steals}},
+                  drilldown: "{{playerstats.2.playerID}}"
                 },
                 {
                   name: "{{player4.firstname}} {{player4.lastname}}",
-                  y: {{playerstats.4.three_point_field_goal_percentage}} *100,
-                  drilldown: "{{playerstats.4.playerID}}"
+                  y: {{playerstats.2.steals}},
+                  drilldown: "{{playerstats.2.playerID}}"
                 }
               ]
             }
@@ -176,12 +177,8 @@
                 id: "{{playerstats.0.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.0.three_point_field_goals}} *100
-                  ],
-                  [
-                    "3 point field goal attempts",
-                    {{playerstats.0.three_point_field_goal_attempts}} *100
+                    "Steals",
+                    {{playerstats.0.steals}}
                   ]
                 ]
               },
@@ -190,12 +187,8 @@
                 id: "{{playerstats.1.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.1.three_point_field_goals}} *100
-                  ],
-                  [
-                    "3 point field goal attempts",
-                    {{playerstats.1.three_point_field_goal_attempts}} *100
+                    "steals",
+                    {{playerstats.1.steals}}
                   ]
                 ]
               },
@@ -204,40 +197,28 @@
                 id: "{{playerstats.2.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.2.three_point_field_goals}} *100
-                  ],
-                  [
-                    "3 point field goal attempts",
-                    {{playerstats.2.three_point_field_goal_attempts}} *100
+                    "Steals",
+                    {{playerstats.2.steals}}
                   ]
                 ]
               },
               {
                 name: "{{player3.firstname}} {{player3.lastname}}",
-                id: "{{playerstats.3.playerID}}",
+                id: "{{playerstats.2.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.3.three_point_field_goals}} *100
-                  ],
-                  [
-                    "3 point field goal attempts",
-                    {{playerstats.3.three_point_field_goal_attempts}} *100
+                    "Steals",
+                    {{playerstats.2.steals}}
                   ]
                 ]
               },
               {
                 name: "{{player4.firstname}} {{player4.lastname}}",
-                id: "{{playerstats.4.playerID}}",
+                id: "{{playerstats.2.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{playerstats.4.three_point_field_goals}} *100
-                  ],
-                  [
-                    "three point field goal attempts",
-                    {{playerstats.4.three_point_field_goal_attempts}} *100
+                    "Steals",
+                    {{playerstats.2.steals}}
                   ]
                 ]
               }

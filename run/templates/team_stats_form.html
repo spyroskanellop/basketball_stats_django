@@ -2,18 +2,482 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Team Stats</title>
-    {% load crispy_forms_tags %}
+    <title>Add Stats</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/form.css'%}">
     {% include 'header.html' %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+     <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body{
+            overflow: hidden;
+        }
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: linear-gradient(147deg, #166d3b 0%, #000000 74%);
+            animation: animate 10s linear infinite;
+        }
+        @keyframes animate {
+            0%
+            {
+                filter: hue-rotate(0deg);
+            }
+            100%
+            {
+                filter: hue-rotate(360deg);
+            }
+        }
+        .box {
+            position: relative;
+            padding: 50px;
+            width: 700px;
+            height: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            box-shadow:0 5px 35px rgba(0 ,0, 0, 0.2);
+        }
+        .box::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 5px;
+            pointer-events: none;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 15%, transparent 85%, rgba(255, 255, 255, 0.3) 100%);
+        }
+        .box .form{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin-top: 15%;
+            margin-bottom: -5%;
+        }
+        .box .form h2 {
+            color: #A9A9A9;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            transform: rotateZ(-90deg);
+            top: 0;
+            position: absolute;
+            margin-top: 40%;
+            margin-left: -55%;
+            font-size: 30px;
+        }
+        .box .form h1 {
+            color: #A9A9A9;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            top: 0;
+            font-size: 30px;
+        }
+        .box .form .inputBox {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .box .form .inputBox input {
+            outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            padding: 10px 15px;
+            padding-left: 35px;
+            border-radius: 6px;
+            color: #A9A9A9;
+            font-size: 16px;
+            font-weight: 300;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 255);
+        }
+        .box .form .inputBox input::placeholder {
+            color: #A9A9A9;
+        }
+        .box .form .inputBox input[type="submit"] {
+            display: block;
+            background: #fff;
+            color: #111;
+            margin : 0 auto;
+            max-width: 100px;
+            padding: 15px 25px;
+            box-shadow: inset 1px 1px 25px black;
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            position: absolute;
+            bottom: -100px;
+            margin-left: 45%;
+         }
+
+        .box .form a {
+            color: #A9A9A9;
+        }
+
+        /* RIGHT-LEFT COLUMNS */
+        .column-1{
+            float: left;
+            width: 45%;
+            margin-right: 10px;
+        }
+        .column-2{
+            float: right;
+            width: 45%;
+        }
+
+        /* SELECT BOX */
+        .fas {
+            position: absolute;
+            height: 100%;
+            font-size: 30px;
+            top: 10px;
+            right: 20px;
+        }
+        select {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 255);
+            font-size: 16px;
+            padding: 8px 10px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+            margin-top: 30px;
+            outline: none;
+            color: #A9A9A9;
+            padding-left: 35px;
+            border-radius: 6px;
+        }
+        .select option {
+            background: #d1d1e0;
+            color: #5c5c8a;
+        }
+        .select-box{
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-bar{
+            position: absolute;
+            top: 0;
+            background: transparent;
+            margin-top: 5.5%;
+            margin-left: 55%;
+        }
+        ul {
+            position: relative;
+            background: rgba(204, 204, 204, .5);
+            display: flex;
+            padding: 5px 10px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .4);
+        }
+        ul li {
+            list-style: none;
+            line-height: 30px;
+            margin: 0 5px;
+        }
+        ul li.pageNumber {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        ul li a {
+            display: block;
+            text-decoration: none;
+            color: #777;
+            font-weight: 600;
+            border-radius: 50%;
+        }
+        ul li.pageNumber:hover a,
+        ul li.pageNumber.active a
+         {
+            background: #333;
+            color: #fff;
+        }
+        ul li:first-child {
+            margin-right: 30px;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        ul li:first-child {
+            margin-right: 30px;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .second-page {
+            position: absolute;
+            top: 0;
+            margin-top: 5%;
+            margin-left: 5%;
+        }
+        .img2 {
+            position: absolute;
+            top: 5%;
+            right: 0;
+            height: 400px;
+            width: 450px;
+        }
+        #mydiv {
+          position: absolute;
+          bottom: 5%;
+          left:0;
+          z-index: 9;
+        }
+        #mydivheader {
+          padding: 10px;
+          cursor: move;
+          z-index: 10;
+          color: #fff;
+        }
+        #points {
+            position: absolute;
+            left: 27%;
+            top: 0;
+            margin-top: -70px;
+        }
+    </style>
 </head>
 <body>
-    <form action="" method="POST" >
-        {% csrf_token %}
-        {{ form|crispy}}
-        <button type="submit">Save</button>
-    </form>
+    <section>
+        <div class="box">
+            <div class="form">
+                <h2>Add Team Stats</h2>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="first-page">
+                        <div class="select">
+                            <select class="select-box" name="teamID" id="teamID">
+                                <option selected disabled>Choose your team's name</option>
+                                {% for x,y in form.fields.teamID.choices %}-->
+                                    <div class="option">
+                                        <option value="{{ x }}">{{ y }}</option>
 
+                                    </div>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="column-1">
+                            <div class="inputBox">
+                                {{form.field_goals}}
+                            </div>
+                            <div class="inputBox">
+                                {{form.field_goal_attempts}}
+                            </div>
+                            <div class="inputBox">
+                                {{form.three_point_field_goal}}
+                            </div>
+                            <div class="inputBox">
+                                {{form.three_point_field_goal_attempts}}
+                            </div>
+                        </div>
+                        <div class="column-2">
+                            <div class="inputBox">
+                                {{form.two_point_field_goal}}
+                            </div>
+                            <div class="inputBox">
+                                {{form.two_point_field_goal_attempts}}
+                            </div>
+                            <div class="inputBox">
+                                {{form.free_throws}}
+                            </div>
+                            <div class="inputBox">
+                                {{form.free_throw_attempts}}
+                            </div>
+                        </div>
+                    </div>
+
+                   <div class="second-page">
+                        <div class="column-1">
+                            <div class="inputBox">
+                                {{form.games}}
+                            </div>
+
+                            <div class="inputBox">
+                                {{form.offensive_rebounds}}
+                            </div>
+
+                            <div class="inputBox">
+                                    {{form.defensive_rebounds}}
+                            </div>
+                            <div class="inputBox">
+                                    {{form.assists}}
+                            </div>
+                        </div>
+
+                        <div class="column-2">
+                            <div class="inputBox">
+                                    {{form.steals}}
+                            </div>
+                            <div class="inputBox">
+                                    {{form.turnovers}}
+                            </div>
+                            <div class="inputBox">
+                                    {{form.blocks}}
+                            </div>
+                            <div class="inputBox">
+                                    {{form.personal_fouls}}
+                            </div>
+                            <div class="inputBox" id="points">
+                                    {{form.points}}
+                            </div>
+                        </div>
+                        <div class="inputBox">
+                            <input type="submit" value="Save">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="nav-bar">
+        <ul class="pagination">
+            <li><a href="#" class="prev">Prev</a></li>
+            <li class="pageNumber active" id="first-page"><a href="#">1</a></li>
+            <li class="pageNumber" id="second-page"><a href="#">2</a></li>
+            <li><a href="#" class="next">Next</a></li>
+        </ul>
+    </div>
+
+    <input type="image" src="{% static 'img/hoop-right.png' %}" class="img2" id="img2"/>
+
+    <div id="mydiv">
+      <div id="mydivheader"><img src="{% static 'img/ball.png' %}" height="80px" width="80px;" class="img" id='img' draggable="true" /></div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.second-page').css('visibility', 'hidden');
+
+            $('.next').click(function(){
+                $('.pagination').find('.pageNumber.active').next().addClass('active');
+                $('.pagination').find('.pageNumber.active').prev().removeClass('active');
+                $('.first-page').css('visibility', 'hidden');
+                $('.second-page').css('visibility', 'visible');
+            });
+            $('.prev').click(function(){
+                $('.pagination').find('.pageNumber.active').prev().addClass('active');
+                $('.pagination').find('.pageNumber.active').next().removeClass('active');
+                $('.first-page').css('visibility', 'visible');
+                $('.second-page').css('visibility', 'hidden');
+            });
+            $('#second-page').click(function(){
+                $('.pagination').find('.pageNumber.active').next().addClass('active');
+                $('.pagination').find('.pageNumber.active').prev().removeClass('active');
+                $('.first-page').css('visibility', 'hidden');
+                $('.second-page').css('visibility', 'visible');
+            });
+            $('#first-page').click(function(){
+                $('.pagination').find('.pageNumber.active').prev().addClass('active');
+                $('.pagination').find('.pageNumber.active').next().removeClass('active');
+                $('.first-page').css('visibility', 'visible');
+                $('.second-page').css('visibility', 'hidden');
+            });
+        });
+
+    dragElement(document.getElementById("mydiv"));
+
+        function dragElement(elmnt) {
+          var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+          if (document.getElementById(elmnt.id + "header")) {
+            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+          } else {
+            elmnt.onmousedown = dragMouseDown;
+          }
+
+          function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+          }
+
+          function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            /* console.log(elmnt.style.top +" "+elmnt.style.left ); */
+            console.log('Sb is dragging me?');
+          }
+
+          function closeDragElement() {
+            // stop moving when mouse button is released:
+            document.onmouseup = null;
+            document.onmousemove = null;
+
+            var element = document.getElementById("mydiv");
+            var hoop = document.getElementById("img2");
+
+
+            var bodyHeight = $(document).height();
+            var bodyWidth = $(document).width();
+
+            var rect = element.getBoundingClientRect();     // original ball position
+            var height = bodyHeight -rect.top -100;
+
+            down();
+
+            var basket = false;
+
+            function down(){
+                var p = $( "#mydiv" );
+                var position = p.position();
+                if(position.top < 195 && (position.left>=1390 && position.left<=1460) ){
+                    alert('its goin in');
+                    basket = true;
+                }
+                $('.img').animate({
+                    marginTop: "+=" +height +"px"
+                },1000);
+                $('.img').animate({
+                    marginTop: "-=" +height/2 +"px"
+                },1000);
+                $('.img').animate({
+                    marginTop: "+=" +height/2 +"px"
+                },1000);
+
+                if(basket=== true){
+                    setTimeout(() => {
+                        $('.img').hide('slow');
+                        $('.pagination').find('.pageNumber.active').next().addClass('active');
+                        $('.pagination').find('.pageNumber.active').prev().removeClass('active');
+                        $('.first-page').css('visibility', 'hidden');
+                        $('.second-page').css('visibility', 'visible');
+                    }, 4000);
+                } else {
+                    setTimeout(() => {
+                    document.getElementById("img").style.marginTop = "5%";
+                    alert('Shoot it champ');
+                    }, 4000);
+                }
+            }
+          }
+        }
+    </script>
 </body>
 </html>

@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Defensive Rebounds chart</title>
+    <title>Offensive Rebounds chart</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
-
     {% load static %}
     <style>
         *{
@@ -27,7 +26,9 @@
           max-width: 800px;
           margin-top: 50px;
           border-style: inset;
-          box-shadow: 10px 10px 15px 10px white;
+          box-shadow: 10px 10px 15px white;
+          margin: 1em auto;
+
         }
 
         #container {
@@ -67,6 +68,7 @@
             margin-bottom: 6px;
             color: #cccccc;
         }
+
     </style>
 </head>
 <body>
@@ -90,7 +92,7 @@
             type: 'bar'
           },
           title: {
-            text: 'Top 3 dominating Teams in defensive rebounds'
+            text: 'Top 5 dominating Players in offensive rebounds'
           },
           subtitle: {
             text: 'Source: <a href="https://www.basketball-reference.com">Basketball-reference</a>'
@@ -104,7 +106,7 @@
           yAxis: {
             min: 0,
             title: {
-              text: 'Defensive Rebounds',
+              text: 'Offensive Rebounds',
               align: 'high'
             },
             labels: {
@@ -137,14 +139,20 @@
             enabled: false
           },
           series: [{
-            name: '{{qs.0.teamID}}',
-            data: [{{qs.0.defensive_rebounds}}]
+            name: '{{player0.firstname}} {{player0.lastname}}',
+            data: [{{playerstats.0.offensive_rebounds}}]
           }, {
-            name: '{{qs.1.teamID}}',
-            data: [{{qs.1.defensive_rebounds}}]
+            name: '{{player1.firstname}} {{player1.lastname}}',
+            data: [{{playerstats.1.offensive_rebounds}}]
           }, {
-            name: '{{qs.2.teamID}}',
-            data: [{{qs.2.defensive_rebounds}}]
+            name: '{{player2.firstname}} {{player2.lastname}}',
+            data: [{{playerstats.2.offensive_rebounds}}]
+          }, {
+            name: '{{player3.firstname}} {{player3.lastname}}',
+            data: [{{playerstats.3.offensive_rebounds}}]
+          }, {
+            name: '{{player4.firstname}} {{player4.lastname}}',
+            data: [{{playerstats.4.offensive_rebounds}}]
           }]
         });
     </script>

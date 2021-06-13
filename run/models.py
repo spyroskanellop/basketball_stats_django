@@ -3,17 +3,6 @@ from django.db import models
 
 
 class Teams(models.Model):
-    # COLORS = (
-    #     ('White', '#FFFFFF'),
-    #     ('Black', '#000000'),
-    #     ('Silver', '#C0C0C0'),
-    #     ('Gray', '#808080'),
-    #     ('Red', '#FF0000'),
-    #     ('Maroon', '#800000'),
-    #     ('Green', '#008000'),
-    #     ('Navy', '#000080'),
-    #     ('Teal', '#008080'),
-    # )
     team_name = models.CharField(max_length=200, unique=True)
 
     def __str__(self):
@@ -46,7 +35,7 @@ class Players(models.Model):
 
     # return the value when object is called
     def __str__(self):
-        return self.firstname +" " +self.lastname
+        return str(self.id)
 
 class Scores(models.Model):
     xCoor = models.FloatField()
@@ -56,21 +45,27 @@ class Scores(models.Model):
 
 class TeamStats(models.Model):
     games = models.IntegerField(validators=[MaxValueValidator(110)], default=0)
+
     field_goals = models.IntegerField(validators=[MaxValueValidator(5000)], default=0)
     field_goal_attempts = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
     field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
     three_point_field_goal = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
     three_point_field_goal_attempts = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
     three_point_field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
     two_point_field_goal = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
     two_point_field_goal_attempts = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
     two_point_field_goal_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
     free_throws = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
     free_throw_attempts = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
     free_throw_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+
     offensive_rebounds = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
     defensive_rebounds = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
     total_rebounds = models.IntegerField(validators=[MaxValueValidator(10000)], default=0)
+
     assists = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
     steals = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
     turnovers = models.IntegerField(validators=[MaxValueValidator(1000)], default=0)
@@ -111,6 +106,9 @@ class PlayerStats(models.Model):
     points = models.DecimalField(max_digits=5, decimal_places=2, null=True)
 
     playerID = models.ForeignKey(Players, null=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.playerID
 
 class AverageTeamStats(models.Model):
     games = models.IntegerField(validators=[MaxValueValidator(110)], default=0)

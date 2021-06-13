@@ -26,6 +26,8 @@
           min-width: 310px;
           max-width: 800px;
           margin-top: 50px;
+          margin-left: 25%;
+
           border-style: inset;
           box-shadow: 10px 10px 15px 10px white;
         }
@@ -90,7 +92,7 @@
             type: 'bar'
           },
           title: {
-            text: 'Top 3 dominating Teams in defensive rebounds'
+            text: 'Top 5 dominating Players in defensive rebounds'
           },
           subtitle: {
             text: 'Source: <a href="https://www.basketball-reference.com">Basketball-reference</a>'
@@ -137,14 +139,20 @@
             enabled: false
           },
           series: [{
-            name: '{{qs.0.teamID}}',
-            data: [{{qs.0.defensive_rebounds}}]
+            name: '{{player0.firstname}} {{player0.lastname}}',
+            data: [{{playerstats.0.defensive_rebounds}}]
           }, {
-            name: '{{qs.1.teamID}}',
-            data: [{{qs.1.defensive_rebounds}}]
+            name: '{{player1.firstname}} {{player1.lastname}}',
+            data: [{{playerstats.1.defensive_rebounds}}]
           }, {
-            name: '{{qs.2.teamID}}',
-            data: [{{qs.2.defensive_rebounds}}]
+            name: '{{player2.firstname}} {{player2.lastname}}',
+            data: [{{playerstats.2.defensive_rebounds}}]
+          }, {
+            name: '{{player3.firstname}} {{player3.lastname}}',
+            data: [{{playerstats.3.defensive_rebounds}}]
+          }, {
+            name: '{{player4.firstname}} {{player4.lastname}}',
+            data: [{{playerstats.4.defensive_rebounds}}]
           }]
         });
     </script>

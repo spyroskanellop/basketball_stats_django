@@ -78,6 +78,15 @@
             margin-left: -55%;
             font-size: 30px;
         }
+        .box .form h1 {
+            color: #A9A9A9;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            top: 0;
+            font-size: 30px;
+        }
         .box .form .inputBox {
             margin-bottom: 30px;
             text-align: center;
@@ -138,7 +147,6 @@
             right: 20px;
         }
         select {
-            width: 100%;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 255);
             font-size: 16px;
             padding: 8px 10px;
@@ -157,6 +165,8 @@
         }
         .select-box{
             position: relative;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .nav-bar{
@@ -243,8 +253,16 @@
                 <form action="" method="POST">
                     {% csrf_token %}
                     <div class="first-page">
-                        <div class="inputBox">
-                            {{form.playerID}}
+                        <div class="select">
+                            <select class="select-box" name="playerID" id="playerID">
+                                <option selected disabled>Choose your player's id</option>
+                                {% for x,y in form.fields.playerID.choices %}-->
+                                    <div class="option">
+                                        <option value="{{ x }}">{{ y }}</option>
+
+                                    </div>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="column-1">
                             <div class="inputBox">

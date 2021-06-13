@@ -135,9 +135,14 @@
                 <th>Dominant Hand</th>
                 <th>Nationality</th>
                 <th>Team's Name</th>
+                <th>Player's ID</th>
+
                 <th><a href="{% url 'player_insert2'  %}" class="btn text-secondary px-0"><button>Add player</button>
-                    <i class="fas fa-user-plus"></i>
-                </a></th>
+                    <i class="fas fa-user-plus"></i></a>
+                </th>
+                <th colspan="2"><a href="{% url 'average_player_stats'  %}" class="btn text-secondary px-0"><button>Update Average Player Stats</button>
+                    <i class="fas fa-user-plus"></i></a>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -150,6 +155,7 @@
                     <td>{{player.dominant_hand}}</td>
                     <td>{{player.nationality}}</td>
                     <td>{{player.teamID}}</td>
+                    <td>{{player.id}}</td>
 
                     <td><a href="{% url 'player_update' player.id %}" class="btn text-secondary px-0">
                         <button>Edit</button>
