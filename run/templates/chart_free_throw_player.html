@@ -109,10 +109,6 @@
 </head>
 <body>
 
-<!--    <p>{{qs.0.playerID}}</p>-->
-<!--    <p>{{qs.5.playerID}}</p>-->
-
-
     <div class="b-skills">
         <div class="container" style="margin-left: 10%;">
             <h2>Free throw percentage</h2>
@@ -122,10 +118,10 @@
                     <div class="skill-item center-block">
                         <div class="chart-container">
                             <div class="chart" id="first_bar" data-percent="" data-bar-color="#3333cc">
-                                <span class="percent" id="first_label" data-after="%">{{qs.0.free_throw_percentage}}</span>
+                                <span class="percent" id="first_label" data-after="%">{{playerstats.0.free_throw_percentage}}</span>
                             </div>
                         </div>
-                        <p>{{qs.0.playerID}}</p>
+                        <a href="{% url 'player_stats' player0.id %}"><p>{{player0.firstname}} {{player0.lastname}}</p></a>
                     </div>
                 </div>
 
@@ -133,10 +129,10 @@
                     <div class="skill-item center-block">
                         <div class="chart-container">
                             <div class="chart" id="second_bar" data-percent="" data-bar-color="purple">
-                                <span class="percent" id="second_label" data-after="%">{{qs.1.free_throw_percentage}}</span>
+                                <span class="percent" id="second_label" data-after="%">{{playerstats.1.free_throw_percentage}}</span>
                             </div>
                         </div>
-                        <p>{{qs.1.playerID}}</p>
+                        <a href="{% url 'player_stats' player1.id %}"><p>{{player1.firstname}} {{player1.lastname}}</p></a>
                     </div>
                 </div>
 
@@ -144,10 +140,10 @@
                     <div class="skill-item center-block">
                         <div class="chart-container">
                             <div class="chart" id="third_bar" data-percent="" data-bar-color="#ff4241">
-                                <span class="percent" id="third_label" data-after="%">{{qs.2.free_throw_percentage}}</span>
+                                <span class="percent" id="third_label" data-after="%">{{playerstats.2.free_throw_percentage}}</span>
                             </div>
                         </div>
-                        <p>{{qs.2.playerID}}</p>
+                        <a href="{% url 'player_stats' player2.id %}"><p>{{player2.firstname}} {{player2.lastname}}</p></a>
                     </div>
                 </div>
 
@@ -155,10 +151,10 @@
                     <div class="skill-item center-block">
                         <div class="chart-container">
                             <div class="chart" id="fourth_bar" data-percent="" data-bar-color="#666699">
-                                <span class="percent" id="fourth_label" data-after="%">{{qs.3.free_throw_percentage}}</span>
+                                <span class="percent" id="fourth_label" data-after="%">{{playerstats.3.free_throw_percentage}}</span>
                             </div>
                         </div>
-                        <p>{{qs.3.playerID}}</p>
+                        <a href="{% url 'player_stats' player3.id %}"><p>{{player3.firstname}} {{player3.lastname}}</p></a>
                     </div>
                 </div>
 
@@ -166,10 +162,10 @@
                     <div class="skill-item center-block">
                         <div class="chart-container">
                             <div class="chart" id="fifth_bar" data-percent="" data-bar-color="#33ff33">
-                                <span class="percent" id="fifth_label" data-after="%">{{qs.4.free_throw_percentage}}</span>
+                                <span class="percent" id="fifth_label" data-after="%">{{playerstats.4.free_throw_percentage}}</span>
                             </div>
                         </div>
-                        <p>{{qs.4.playerID}}</p>
+                        <a href="{% url 'player_stats' player4.id %}"><p>{{player4.firstname}} {{player4.lastname}}</p></a>
                     </div>
                 </div>
 
@@ -180,11 +176,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src='{% static "plugins/jquery.easypiechart.min.js" %}'></script>
     <script type="text/javascript">
-        var free_throw_percentage1 = {{qs.0.free_throw_percentage}} *100;
-        var free_throw_percentage2 = {{qs.1.free_throw_percentage}} *100;
-        var free_throw_percentage3 = {{qs.2.free_throw_percentage}} *100;
-        var free_throw_percentage4 = {{qs.3.free_throw_percentage}} *100;
-        var free_throw_percentage5 = {{qs.4.free_throw_percentage}} *100;
+        var free_throw_percentage1 = {{playerstats.0.free_throw_percentage}} *100;
+        var free_throw_percentage2 = {{playerstats.1.free_throw_percentage}} *100;
+        var free_throw_percentage3 = {{playerstats.2.free_throw_percentage}} *100;
+        var free_throw_percentage4 = {{playerstats.3.free_throw_percentage}} *100;
+        var free_throw_percentage5 = {{playerstats.4.free_throw_percentage}} *100;
 
 
         $('#first_bar').attr('data-percent', free_throw_percentage1);

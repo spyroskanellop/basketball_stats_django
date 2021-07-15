@@ -242,6 +242,7 @@ def createAvgTeamStats(request):
 
     print(counter)
     print(points)
+
     averageTeamStats = AverageTeamStats()
     averageTeamStats.assists = assists/counter
     averageTeamStats.games = games/counter
@@ -265,7 +266,8 @@ def createAvgTeamStats(request):
     averageTeamStats.two_point_field_goal = 0
     averageTeamStats.two_point_field_goal_attempts = 0
     averageTeamStats.two_point_field_goal_percentage = 0
-
+    print(averageTeamStats.games)
+    print(averageTeamStats.total_rebounds)
     averageTeamStats.save()
     return HttpResponseRedirect('../')
 
@@ -391,13 +393,10 @@ def updatePlayerStats(request, id):
     try:
         playerStats = PlayerStats.objects.get(playerID=id)
         players = Players.objects.get(pk=id)
-        print('inside try')
-        print('players id ' + str(players.id))
         form = PlayerStatsForm(request.POST or None, instance=playerStats)
     except Exception as e:
         print(e)
         form = PlayerStatsForm(request.POST or None)
-        print('inside catch')
         players = {}
 
     if form.is_valid():
@@ -555,7 +554,7 @@ class Point3ChartPlayerView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         playerStats = PlayerStats.objects.order_by('-three_point_field_goal_percentage')[:5]
-        player0 = Players.objects.get(id= playerStats[0].playerID.id)
+        player0 = Players.objects.get(id=playerStats[0].playerID.id)
         player1 = Players.objects.get(id=playerStats[1].playerID.id)
         player2 = Players.objects.get(id=playerStats[2].playerID.id)
         player3 = Players.objects.get(id=playerStats[3].playerID.id)
@@ -570,15 +569,13 @@ class Point2ChartPlayerView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context["qs"] = list(chain(PlayerStats.objects.order_by('-three_point_field_goal_percentage')[:5], Players.objects.all()))
         playerStats = PlayerStats.objects.order_by('-two_point_field_goal_percentage')[:5]
 
-        player0 = Players.objects.get(id= playerStats[0].playerID.id)
+        player0 = Players.objects.get(id=playerStats[0].playerID.id)
         player1 = Players.objects.get(id=playerStats[1].playerID.id)
         player2 = Players.objects.get(id=playerStats[2].playerID.id)
         player3 = Players.objects.get(id=playerStats[3].playerID.id)
         player4 = Players.objects.get(id=playerStats[4].playerID.id)
-
         context.update({'playerstats': playerStats, 'player0': player0, 'player1': player1, 'player2': player2, 'player3': player3, 'player4': player4})
 
         return context
@@ -586,13 +583,11 @@ class Point2ChartPlayerView(TemplateView):
 class FreeThrowChartPlayerView(TemplateView):
     template_name = 'chart_free_throw_player.html'
 
-    # playerStats = PlayerStats.objects.get(playerID=46)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         playerStats = PlayerStats.objects.order_by('-free_throw_percentage')[:5]
 
-        player0 = Players.objects.get(id= playerStats[0].playerID.id)
+        player0 = Players.objects.get(id=playerStats[0].playerID.id)
         player1 = Players.objects.get(id=playerStats[1].playerID.id)
         player2 = Players.objects.get(id=playerStats[2].playerID.id)
         player3 = Players.objects.get(id=playerStats[3].playerID.id)

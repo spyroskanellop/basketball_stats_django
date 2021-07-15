@@ -92,7 +92,6 @@
         feature in Highcharts to easily switch between datasets.
       </p>
     </figure>
-
     <script type="text/javascript">
         // Create the chart
         Highcharts.chart('container', {
@@ -143,29 +142,29 @@
               colorByPoint: true,
               data: [
                 {
-                  name: "{{qs.0.playerID}}",
-                  y: {{qs.0.two_point_field_goal_percentage}} *100,
-                  drilldown: "{{qs.0.playerID}}"
+                  name: "{{player0.firstname}} {{player0.lastname}}",
+                  y: {{playerstats.0.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{playerstats.0.playerID}}"
                 },
                 {
-                  name: "{{qs.1.playerID}}",
-                  y: {{qs.1.two_point_field_goal_percentage}} *100,
-                  drilldown: "{{qs.1.playerID}}"
+                  name: "{{player1.firstname}} {{player1.lastname}}",
+                  y: {{playerstats.1.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{playerstats.1.playerID}}"
                 },
                 {
-                  name: "{{qs.2.playerID}}",
-                  y: {{qs.2.two_point_field_goal_percentage}} *100,
-                  drilldown: "{{qs.2.playerID}}"
+                  name: "{{player2.firstname}} {{player2.lastname}}",
+                  y: {{playerstats.2.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{playerstats.2.playerID}}"
                 },
                 {
-                  name: "{{qs.3.playerID}}",
-                  y: {{qs.3.two_point_field_goal_percentage}} *100,
-                  drilldown: "{{qs.3.playerID}}"
+                  name: "{{player3.firstname}} {{player3.lastname}}",
+                  y: {{playerstats.3.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{playerstats.3.playerID}}"
                 },
                 {
-                  name: "{{qs.4.playerID}}",
-                  y: {{qs.4.two_point_field_goal_percentage}} *100,
-                  drilldown: "{{qs.4.playerID}}"
+                  name: "{{player4.firstname}} {{player4.lastname}}",
+                  y: {{playerstats.4.two_point_field_goal_percentage}} *100,
+                  drilldown: "{{playerstats.4.playerID}}"
                 }
               ]
             }
@@ -173,72 +172,72 @@
           drilldown: {
             series: [
               {
-                name: "{{qs.0.playerID}}",
-                id: "{{qs.0.playerID}}",
+                name: "{{player0.firstname}} {{player0.lastname}}",
+                id: "{{playerstats.0.playerID}}",
                 data: [
                   [
                     "2 point field goals",
-                    {{qs.0.two_point_field_goals}} *100
+                    {{playerstats.0.two_point_field_goals}} *100
                   ],
                   [
-                    "3 point field goal attempts",
-                    {{qs.0.three_point_field_goal_attempts}} *100
+                    "2 point field goal attempts",
+                    {{playerstats.0.two_point_field_goal_attempts}} *100
                   ]
                 ]
               },
               {
-                name: "{{qs.1.playerID}}",
-                id: "{{qs.1.playerID}}",
+                name: "{{player1.firstname}} {{player1.lastname}}",
+                id: "{{playerstats.1.playerID}}",
                 data: [
                   [
-                    "3 point field goals",
-                    {{qs.1.two_point_field_goals}} *100
+                    "2 point field goals",
+                    {{playerstats.1.two_point_field_goals}} *100
                   ],
                   [
                     "2 point field goal attempts",
-                    {{qs.1.two_point_field_goal_attempts}} *100
+                    {{playerstats.1.two_point_field_goal_attempts}} *100
                   ]
                 ]
               },
               {
-                name: "{{qs.2.playerID}}",
-                id: "{{qs.2.playerID}}",
+                name: "{{player2.firstname}} {{player2.lastname}}",
+                id: "{{playerstats.2.playerID}}",
                 data: [
                   [
                     "2 point field goals",
-                    {{qs.2.two_point_field_goals}} *100
+                    {{playerstats.2.two_point_field_goals}} *100
                   ],
                   [
                     "2 point field goal attempts",
-                    {{qs.2.two_point_field_goal_attempts}} *100
+                    {{playerstats.2.two_point_field_goal_attempts}} *100
                   ]
                 ]
               },
               {
-                name: "{{qs.3.playerID}}",
-                id: "{{qs.3.playerID}}",
+                name: "{{player3.firstname}} {{player3.lastname}}",
+                id: "{{playerstats.3.playerID}}",
                 data: [
                   [
                     "2 point field goals",
-                    {{qs.3.two_point_field_goals}} *100
+                    {{playerstats.3.two_point_field_goals}} *100
                   ],
                   [
                     "2 point field goal attempts",
-                    {{qs.3.two_point_field_goal_attempts}} *100
+                    {{playerstats.3.two_point_field_goal_attempts}} *100
                   ]
                 ]
               },
               {
-                name: "{{qs.4.playerID}}",
-                id: "{{qs.4.playerID}}",
+                name: "{{player4.firstname}} {{player4.lastname}}",
+                id: "{{playerstats.4.playerID}}",
                 data: [
                   [
                     "2 point field goals",
-                    {{qs.4.two_point_field_goals}} *100
+                    {{playerstats.4.two_point_field_goals}} *100
                   ],
                   [
                     "2 point field goal attempts",
-                    {{qs.4.two_point_field_goal_attempts}} *100
+                    {{playerstats.4.two_point_field_goal_attempts}} *100
                   ]
                 ]
               }
