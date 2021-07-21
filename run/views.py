@@ -442,6 +442,7 @@ def updatePlayerStats(request, id):
         print(form.errors)
     context = {'form': form, 'players': players}
     return render(request, "player_stats_form.html", context)
+
 def goHome(request):
     context={}
 
@@ -525,7 +526,7 @@ class TurnoversChartView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["qs"] = TeamStats.objects.order_by('-turnovers')[:3]
+        context["qs"] = list(chain(TeamStats.objects.order_by('-turnovers')[:3], AverageTeamStats.objects.all()))
         return context
 
 
@@ -534,7 +535,7 @@ class StealsChartView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["qs"] = TeamStats.objects.order_by('-offensive_rebounds')[:3]
+        context["qs"] = list(chain(TeamStats.objects.order_by('-steals')[:3], AverageTeamStats.objects.all()))
         return context
 
 class PointsChartView(TemplateView):
@@ -673,6 +674,7 @@ class StealsChartPlayerView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         playerStats = PlayerStats.objects.order_by('-steals')[:5]
+        averageplayerStats = AveragePlayerStats.objects.all()
 
         player0 = Players.objects.get(id= playerStats[0].playerID.id)
         player1 = Players.objects.get(id=playerStats[1].playerID.id)
@@ -680,7 +682,7 @@ class StealsChartPlayerView(TemplateView):
         player3 = Players.objects.get(id=playerStats[3].playerID.id)
         player4 = Players.objects.get(id=playerStats[4].playerID.id)
 
-        context.update({'playerstats': playerStats, 'player0': player0, 'player1': player1, 'player2': player2, 'player3': player3, 'player4': player4})
+        context.update({'playerstats': playerStats, 'player0': player0, 'player1': player1, 'player2': player2, 'player3': player3, 'player4': player4, 'averageplayerstats': averageplayerStats})
 
         return context
 
@@ -690,6 +692,7 @@ class TurnoversChartPlayerView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         playerStats = PlayerStats.objects.order_by('-turnovers')[:5]
+        averageplayerStats = AveragePlayerStats.objects.all()
 
         player0 = Players.objects.get(id= playerStats[0].playerID.id)
         player1 = Players.objects.get(id=playerStats[1].playerID.id)
@@ -697,7 +700,7 @@ class TurnoversChartPlayerView(TemplateView):
         player3 = Players.objects.get(id=playerStats[3].playerID.id)
         player4 = Players.objects.get(id=playerStats[4].playerID.id)
 
-        context.update({'playerstats': playerStats, 'player0': player0, 'player1': player1, 'player2': player2, 'player3': player3, 'player4': player4})
+        context.update({'playerstats': playerStats, 'player0': player0, 'player1': player1, 'player2': player2, 'player3': player3, 'player4': player4, 'averageplayerstats': averageplayerStats})
 
         return context
 

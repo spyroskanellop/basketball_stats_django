@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Steals chart</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"
-            integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg=="
-            crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+
     <style>
         *{
-            margin: 0;
+            margin: auto;
             padding: 0;
             box-sizing: border-box;
             font-family: "Pattaya", sans-serif;
@@ -22,38 +19,33 @@
         body {
             background-image: linear-gradient(to right top, #9f2943, #902653, #7b2a60, #622f67, #463268, #353b6f, #204272, #004872, #00587b, #00677f, #00757f, #0b837b);
         }
-        .highcharts-description{
-            box-shadow: 1px 10px 15px black;
-            border-radius: 6px;
-            margin-bottom: 6px;
-            color: #cccccc;
+        #container1 {
+          height: 115px;
         }
+        #container2, #container3 {
+          height: 85px;
+        }
+        .hc-cat-title {
+          font-size: 13px;
+          font-weight: bold;
+        }
+
         .highcharts-figure, .highcharts-data-table table {
-          min-width: 310px;
+          min-width: 320px;
           max-width: 800px;
-          margin: 2em auto;
+          margin-top: 50px;
           border-style: inset;
           box-shadow: 10px 10px 15px 10px white;
         }
 
-        .highcharts-figure, .highcharts-data-table table {
-          min-width: 310px;
-          max-width: 800px;
-          margin-top: 50px;
-        }
-
-        #container {
-          height: 400px;
-        }
-
         .highcharts-data-table table {
-            font-family: Verdana, sans-serif;
-            border-collapse: collapse;
-            border: 1px solid #EBEBEB;
-            margin: 10px auto;
-            text-align: center;
-            width: 100%;
-            max-width: 500px;
+          font-family: Verdana, sans-serif;
+          border-collapse: collapse;
+          border: 1px solid #EBEBEB;
+          margin: 10px auto;
+          text-align: center;
+          width: 100%;
+          max-width: 500px;
         }
         .highcharts-data-table caption {
           padding: 1em 0;
@@ -61,7 +53,7 @@
           color: #555;
         }
         .highcharts-data-table th {
-            font-weight: 600;
+        font-weight: 600;
           padding: 0.5em;
         }
         .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
@@ -73,126 +65,170 @@
         .highcharts-data-table tr:hover {
           background: #f1f7ff;
         }
-
+        p{
+            color: gray;
+        }
     </style>
 </head>
 <body>
-   <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
-    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/bullet.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     <figure class="highcharts-figure">
-      <div id="container"></div>
+      <div id="container1"></div>
+      <div id="container2"></div>
+      <div id="container3"></div>
       <p class="highcharts-description">
-        Chart showing browser market shares. Clicking on individual columns
-        brings up more detailed data. This chart makes use of the drilldown
-        feature in Highcharts to easily switch between datasets.
+        A series of bullet charts showing Top3 Teams dominating in steals.
+        Bullet charts allow readers to quickly compare a single value to a
+        target value. This demo is also using plot bands to separate different
+        ranges on the axes. Bullet charts are popular in dashboards, as they
+        typically take up less space than gauge charts.
       </p>
     </figure>
-
     <script type="text/javascript">
-        // Create the chart
-        Highcharts.chart('container', {
+        Highcharts.setOptions({
           chart: {
-            type: 'column'
+            inverted: true,
+            marginLeft: 135,
+            type: 'bullet'
           },
           title: {
-            text: 'Top 3 dominating Teams in Steals'
-          },
-          subtitle: {
-            text: 'Click the columns to view versions. Source: <a href="https://www.basketball-reference.com">Basketball-reference</a>'
-          },
-          accessibility: {
-            announceNewData: {
-              enabled: true
-            }
-          },
-          xAxis: {
-            type: 'category'
-          },
-          yAxis: {
-            title: {
-              text: 'Season 2020-21'
-            }
-
+            text: null
           },
           legend: {
             enabled: false
           },
+          yAxis: {
+            gridLineWidth: 0
+          },
           plotOptions: {
             series: {
+              pointPadding: 0.25,
               borderWidth: 0,
-              dataLabels: {
-                enabled: true,
-                format: '{point.y:.1f}'
+              color: '#000',
+              targetOptions: {
+                width: '200%'
               }
             }
           },
+          credits: {
+            enabled: false
+          },
+          exporting: {
+            enabled: false
+          }
+        });
 
+        Highcharts.chart('container1', {
+          chart: {
+            marginTop: 40
+          },
+          title: {
+            text: 'Top 3 Teams Dominating in Assists'
+          },
+          xAxis: {
+            categories: ['<span class="hc-cat-title">{{qs.0.teamID}}</span><br/>']
+          },
+          yAxis: {
+            plotBands: [{
+              from: 0,
+              to: 150,
+              color: '#666'
+            }, {
+              from: 150,
+              to: 225,
+              color: '#999'
+            }, {
+              from: 225,
+              to: 9e9,
+              color: '#bbb'
+            }],
+            title: null
+          },
+          series: [{
+            data: [{
+              y: {{qs.0.steals}},
+              target: {{qs.3.steals}}
+            }]
+          }],
           tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
-          },
+            pointFormat: '<b>{point.y}</b> (with target at {point.target})'
+          }
+        });
 
-          series: [
-            {
-              name: "Teams",
-              colorByPoint: true,
-              data: [
-                {
-                  name: "{{qs.0.teamID}}",
-                  y: {{qs.0.steals}},
-                  drilldown: "{{qs.0.teamID}}"
-                },
-                {
-                  name: "{{qs.1.teamID}}",
-                  y: {{qs.1.steals}},
-                  drilldown: "{{qs.1.teamID}}"
-                },
-                {
-                  name: "{{qs.2.teamID}}",
-                  y: {{qs.2.steals}},
-                  drilldown: "{{qs.2.teamID}}"
-                }
-              ]
-            }
-          ],
-          drilldown: {
-            series: [
-              {
-                name: "{{qs.0.teamID}}",
-                id: "{{qs.0.teamID}}",
-                data: [
-                  [
-                    "Steals",
-                    {{qs.0.steals}}
-                  ]
-                ]
-              },
-              {
-                name: "{{qs.1.teamID}}",
-                id: "{{qs.1.teamID}}",
-                data: [
-                  [
-                    "steals",
-                    {{qs.1.steals}}
-                  ]
-                ]
-              },
-              {
-                name: "{{qs.2.teamID}}",
-                id: "{{qs.2.teamID}}",
-                data: [
-                  [
-                    "Steals",
-                    {{qs.2.steals}}
-                  ]
-                ]
-              }
-            ]
+        Highcharts.chart('container2', {
+          xAxis: {
+            categories: ['<span class="hc-cat-title">{{qs.1.teamID}}</span><br/>']
+          },
+          yAxis: {
+            plotBands: [{
+              from: 0,
+              to: 150,
+              color: '#666'
+            }, {
+              from: 150,
+              to: 225,
+              color: '#999'
+            }, {
+              from: 225,
+              to: 9e9,
+              color: '#bbb'
+            }],
+            labels: {
+              format: '{value}'
+            },
+            title: null
+          },
+          series: [{
+            data: [{
+              y: {{qs.1.steals}},
+              target: {{qs.3.steals}}
+            }]
+          }],
+          tooltip: {
+            pointFormat: '<b>{point.y}</b> (with target at {point.target})'
+          }
+        });
+
+
+        Highcharts.chart('container3', {
+          xAxis: {
+            categories: ['<span class="hc-cat-title">{{qs.2.teamID}}</span><br/>']
+          },
+          yAxis: {
+            plotBands: [{
+              from: 0,
+              to: 150,
+              color: '#666'
+            }, {
+              from: 150,
+              to: 225,
+              color: '#999'
+            }, {
+              from: 225,
+              to: 9e9,
+              color: '#bbb'
+            }],
+            labels: {
+              format: '{value}'
+            },
+            title: null
+          },
+          series: [{
+            data: [{
+              y: {{qs.2.steals}},
+              target: {{qs.3.steals}}
+            }]
+          }],
+          tooltip: {
+            pointFormat: '<b>{point.y}</b> (with target at {point.target})'
+          },
+          credits: {
+            enabled: true
           }
         });
     </script>
