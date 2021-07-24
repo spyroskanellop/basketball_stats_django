@@ -554,7 +554,8 @@ class Point3ChartPlayerView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        playerStats = PlayerStats.objects.order_by('-three_point_field_goal_percentage')[:5]
+        #  played more than 58 games to participate
+        playerStats = PlayerStats.objects.filter(games__gte=58).order_by('-three_point_field_goal_percentage')[:5]
         player0 = Players.objects.get(id=playerStats[0].playerID.id)
         player1 = Players.objects.get(id=playerStats[1].playerID.id)
         player2 = Players.objects.get(id=playerStats[2].playerID.id)
@@ -570,7 +571,8 @@ class Point2ChartPlayerView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        playerStats = PlayerStats.objects.order_by('-two_point_field_goal_percentage')[:5]
+        #  played more than 58 games to participate
+        playerStats = PlayerStats.objects.filter(games__gte=58).order_by('-two_point_field_goal_percentage')[:5]
 
         player0 = Players.objects.get(id=playerStats[0].playerID.id)
         player1 = Players.objects.get(id=playerStats[1].playerID.id)
@@ -586,8 +588,8 @@ class FreeThrowChartPlayerView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        playerStats = PlayerStats.objects.order_by('-free_throw_percentage')[:5]
-
+        #  played more than 58 games to participate
+        playerStats = PlayerStats.objects.filter(games__gte=58).order_by('-free_throw_percentage')[:5]
         player0 = Players.objects.get(id=playerStats[0].playerID.id)
         player1 = Players.objects.get(id=playerStats[1].playerID.id)
         player2 = Players.objects.get(id=playerStats[2].playerID.id)
